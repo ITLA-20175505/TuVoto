@@ -24,7 +24,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = BASE_URL;
-
 /*
 |--------------------------------------------------------------------------
 | Index File

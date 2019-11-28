@@ -5,4 +5,4 @@
     define('DB_PASSWORD','123456');
 	define('DB_NAME','tuvoto');
 	// Base URL
-	define('BASE_URL','http://localhost/Tuvoto/');
+	define('BASE_URL','http://localhost:8080/TuVoto/');

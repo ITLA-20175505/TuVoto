@@ -1,21 +1,22 @@
 <?php
 
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class CandidatoCTR extends CI_Controller {
+class PadronCTR extends CI_Controller {
 
 	public function index()
 	{
-		encabezado::aplicar("Nuevo Candidatos");
-		$this->load->view('FormCandidato',['persona'=>false]);
+		encabezado::aplicar("Mesa Electoral No. 25");
+		$this->load->view('FormPadron',['persona'=>false]);
 		pie::aplicar();
 		if($_POST){
 			if(isset($_POST['ConsultaCedula']) && $_POST['ConsultaCedula']!= ""){
 				$cedula = $_POST['ConsultaCedula'];
 				$cedula = str_replace('-', '', $cedula);
 				$data = Padron::ConsultarPadron($cedula);
-				encabezado::aplicar('Nuevo Candidato');
-				$this->load->view('FormCandidato',['persona'=>$data]);
+				encabezado::aplicar('Mesa Electoral No. 25');
+				$this->load->view('FormPadron',['persona'=>$data]);
 				pie::aplicar();
 			}else if(isset($_POST['Cedula']) && $_POST['Cedula']!=""){
 				
@@ -24,11 +25,9 @@ class CandidatoCTR extends CI_Controller {
 	}
 	public function Nuevo()
 	{
-		encabezado::aplicar('Nuevo Candidato');
-		$this->load->view('FormCandidato');
+		encabezado::aplicar('PadronP');
+		$this->load->view('Padron.php');
 		pie::aplicar();
 	}
 
 }
-
-/* End of file CandidatoCTR.php */

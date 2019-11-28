@@ -27,6 +27,7 @@ $urlNivel = base_url('NivelCTR');
     <script src="<?=$base?>/js/bootstrap.min.js"></script>
     <script src="<?=$base?>/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="<?=$base?>/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
     <div class="navbar-lateral full-reset">
@@ -86,7 +87,7 @@ $urlNivel = base_url('NivelCTR');
             </div>
         </div>
     </div>
-    <div class="content-page-container full-reset custom-scroll-containers">
+    <div class="content-page-container full-reset custom-scroll-containers" >
         <nav class="navbar-user-top full-reset">
             <ul class="list-unstyled full-reset">
                 <figure>
@@ -110,7 +111,7 @@ $urlNivel = base_url('NivelCTR');
             </ul>
 		</nav>
 		<div class="container">
-	<div class="page-header">
-		<h1 class="all-tittles"><?php echo $titulo ?><small></small></h1>
-	</div>
-</div>
+            <div class="page-header">
+                <h1 class="all-tittles"><?php echo $titulo ?><small></small></h1>
+            </div>
+        </div>

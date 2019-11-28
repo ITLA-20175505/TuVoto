@@ -3,11 +3,14 @@
 	<div class="row" style="margin-top:25px">
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 			<div class="col-lg-5 ">
-				<?=asgInputMaterial("Nivel en la Eleccion","Nombre",null,
+				<?=asgInputMaterial("Nombre del Partido","Nombre",null,
 				"","required",null,null,null,null,null);?>
 			</div>
-			
-			<div class="col-lg-5">
+            <div class="col-lg-5 ">
+				<?=asgInputMaterial("Color que lo represente","Nombre",null,
+				"","required",null,null,null,null,null);?>
+			</div>
+			<div class="col-lg-5 col-sm-offset-3">
 				<select class="material-control tooltips-general" placeholder="Seleccione La Eleccion" required>
 					</select>
 					<span class="highlight"></span>

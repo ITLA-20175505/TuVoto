@@ -1,63 +1,75 @@
-<form autocomplete="off">
-	<div class="row">
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
-			<div class="col-lg-6">
+<form  method="POST">
+	<div class="row" style="margin-top:25px">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-0">
+			<div class="col-lg-11 col-sm-offset-3">
 				<div class="group-material">
-					<input type="text" class="material-control tooltips-general" placeholder="Escribe aquí el número de DUI del docente" pattern="[0-9-]{1,10}" required="" maxlength="10" data-toggle="tooltip" data-placement="top" title="Solamente números y guiones, 10 dígitos">
-					<span class="highlight"></span>
-					<span class="bar"></span>
-					<label>Cedula</label>
+					<div class="col-lg-8">
+					
+						<?=asgInputMaterial("Digite la cedula para consultar","ConsultaCedula","tel","XXX-XXXXXXX-X",
+						null,null,"13","","pattern='[0-9]{3}-[0-9]{7}-[0-9]{1}'",null,"Formato:",$persona['Cedula'],$persona['Error'])?>
+						<!-- data-toggle="tooltip" data-placement="top" title="Escribe el nombre del administrador" -->	
+					</div>
+					
+					<div class="col-lg-2">
+						<button class="btn btn-primary text-left">Consultar <i class="text-right fa fa-search"></i></button>
+					</div>
 				</div>
 			</div>
-			<div class="col-lg-6">
-				<div class="group-material">
-					<input type="text" class="material-control tooltips-general" placeholder="Escribe aquí los nombres del docente" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,50}" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe los nombres del docente, solamente letras">
-					<span class="highlight"></span>
-					<span class="bar"></span>
-					<label>Nombres</label>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="group-material">
-					<input type="text" class="material-control tooltips-general" placeholder="Escribe aquí los apellidos del docente" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,50}" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escribe los apellidos del docente, solamente letras">
-					<span class="highlight"></span>
-					<span class="bar"></span>
-					<label>Apellidos</label>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="group-material">
-					<input type="text" class="material-control tooltips-general" placeholder="Escribe aquí el número de teléfono del docente" pattern="[0-9]{8,8}" required="" maxlength="8" data-toggle="tooltip" data-placement="top" title="Solamente 8 números">
-					<span class="highlight"></span>
-					<span class="bar"></span>
-					<label>Fecha de nacimiento</label>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<div class="group-material">
-					<input type="text" class="material-control tooltips-general" placeholder="Escribe aquí la especialidad del docente" required="" maxlength="40" data-toggle="tooltip" data-placement="top" title="Especialidad del docente">
-					<span class="highlight"></span>
-					<span class="bar"></span>
-					<label>Cargo a aspirar</label>
-				</div>
-			</div>
-			<div class="col-lg-6">
-				<legend>Partidos</legend>
-				<div class="group-material">
-					<span>Sección encargada</span>
-					<select class="material-control tooltips-general" data-toggle="tooltip" data-placement="top" title="Elige la sección encargada del docente">
-						<option value="" disabled="" selected="">Selecciona una sección</option>
-						<option value="Seccion">PLD</option>
-						<option value="Seccion">PRM</option>
-						<option value="Seccion">LFDP</option>
-					</select>
-				</div>
-			</div>
-
-			<p class="text-center">
-				<button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
-				<button type="submit" class="btn btn-primary"><i class="zmdi zmdi-floppy"></i> &nbsp;&nbsp; Guardar</button>
-			</p> 
 		</div>
 	</div>
 </form>
+<form  method="POST" id="formdatos">
+	<div class="row" style="margin-top:25px">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+			<div class="col-lg-3 ">
+				<?=asgInputMaterial("","Cedula",null,
+				"Cedula del usuario","readonly",null,null,null,null,null,$persona['Cedula']);?>
+			</div>
+			
+			<div class="col-lg-4">
+			<?=asgInputMaterial("","Nombre",null,
+				"Si existe en el padron se mostrara los Nombres","readonly required",null,null,null,null,null,null,$persona['Nombres']);?>
+			</div>
+			<div class="col-lg-5">
+			<?=asgInputMaterial("","Apellido",null,
+				"Si existe en el padron se mostrara el Apellido","readonly required",null,null,null,null,null,null,"{$persona['Apellido1']}"." "."{$persona['Apellido2']}");?>
+			</div>
+		</div>
+	</div>
+	<div class="row" style="margin-top:25px">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-4">
+				<div class="group-material">
+					<select class="material-control tooltips-general" placeholder="Seleccione el Partido" required="">
+					</select>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label>Partido Politico al que Aspira</label>
+					<small id="message" style="font-weight:bold"></small>
+				</div>
+			</div>
+			<div class="col-lg-4">
+				<div class="group-material">
+					<select class="material-control tooltips-general" placeholder="Seleccione el Nivel" required="">
+					</select>
+					<span class="highlight"></span>
+					<span class="bar"></span>
+					<label>Nivel al que Aspira</label>
+					<small id="message" style="font-weight:bold"></small>
+				</div>
+			</div>
+			<div class="col-lg-4"></div>
+			<div class="col-lg-4">
+				<button type="reset"  class="btn btn-info" style="margin-right: 20px;"><i class="fa fa-retweet"></i> &nbsp;&nbsp; Limpiar</button>
+				<button type="submit" id="btnSave" class="btn btn-success" ><i class="fa fa-cloud-upload"></i> &nbsp;&nbsp; Guardar</button>
+			</div> 
+		</div>
+	</div>
+</form>
+<script>
+	 <?php echo "cedula = '".$persona['Cedula']."';";?>
+	
+</script>
+<script>
+</script>

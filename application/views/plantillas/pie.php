@@ -1,5 +1,5 @@
 
-<footer class="footer full-reset">
+<footer class="footer full-reset" style="min-height:288px">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6">
@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="footer-copyright full-reset all-tittles">&copy; 2019 AleSot S.A</div>
-		</footer>
-		</div>
+        </footer>
+</div>
 </body>
 </html>
