@@ -23,11 +23,4 @@ class PadronCTR extends CI_Controller {
 			}
 		}
 	}
-	public function Nuevo()
-	{
-		encabezado::aplicar('PadronP');
-		$this->load->view('Padron.php');
-		pie::aplicar();
-	}
-
 }

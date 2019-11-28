@@ -7,6 +7,10 @@ class NivelCTR extends CI_Controller {
 
 	public function index()
 	{
+	
+	}
+	public function Nuevo()
+	{
 		encabezado::aplicar("Nuevo Nivel");
 		$this->load->view('FormNivel',['persona'=>false]);
 		pie::aplicar();
@@ -22,12 +26,6 @@ class NivelCTR extends CI_Controller {
 				
 			}
 		}
-	}
-	public function Nuevo()
-	{
-		encabezado::aplicar('Nuevo Nivel de Eleccion');
-		$this->load->view('FormNivel');
-		pie::aplicar();
 	}
 
 }

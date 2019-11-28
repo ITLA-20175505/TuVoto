@@ -1,10 +1,11 @@
 <?php
 $base = base_url('base');
-$url = base_url('');
-$urlEleccion = base_url('EleccionCTR');
-$urlUsuario = base_url('UsuarioCTR');
-$urlCandidato = base_url('CandidatoCTR');
-$urlNivel = base_url('NivelCTR');
+$url = base_url('index.php');
+$urlEleccion = base_url('index.php/EleccionCTR');
+$urlUsuario = base_url('index.php/UsuarioCTR');
+$urlCandidato = base_url('index.php/CandidatoCTR');
+$urlNivel = base_url('index.php/NivelCTR');
+$urlPartido = base_url('index.php/PartidoCTR');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -69,7 +70,7 @@ $urlNivel = base_url('NivelCTR');
                         <div class="dropdown-menu-button"><i class="fa fa-university"></i>&nbsp;&nbsp; Partidos / Grupos <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
                             <li><a href="book.html"><i class="fa fa-object-group"></i>&nbsp;&nbsp; Listados de Partidos o Grupos</a></li>
-                            <li><a href="catalog.html"><i class="fa fa-clipboard"></i>&nbsp;&nbsp; Nuevo Partido o Grupo</a></li>
+                            <li><a href="<?=$urlPartido?>/Nuevo"><i class="fa fa-clipboard"></i>&nbsp;&nbsp; Nuevo Partido o Grupo</a></li>
                         </ul>
                     </li>
                     <li>

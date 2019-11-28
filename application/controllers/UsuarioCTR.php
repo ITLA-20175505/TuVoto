@@ -5,7 +5,12 @@ class UsuarioCTR extends CI_Controller {
 
 	public function index()
 	{
-		encabezado::aplicar("Sistema Elecciones");
+		
+	}
+
+	public function Nuevo()
+	{
+		encabezado::aplicar("Nuevo Usuario");
 		$this->load->view('FormUsuario',['persona'=>false]);
 		pie::aplicar();
 		if($_POST){
@@ -20,13 +25,6 @@ class UsuarioCTR extends CI_Controller {
 				
 			}
 		}
-	}
-
-	public function Nuevo()
-	{
-		encabezado::aplicar('Nuevo Usuario');
-		$this->load->view('FormUsuario');
-		pie::aplicar();
 		
 	}
 
