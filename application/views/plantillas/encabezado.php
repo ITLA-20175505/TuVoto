@@ -19,7 +19,8 @@ $urlNivel = base_url('NivelCTR');
     <link rel="stylesheet" href="<?=$base?>/css/normalize.css">
     <link rel="stylesheet" href="<?=$base?>/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?=$base?>/css/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" href="<?=$base?>/css/style.css">
+	<link rel="stylesheet" href="<?=$base?>/css/style.css">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<?=$base?>/js/jquery-1.11.2.min.js"><\/script>')</script>
     <script src="<?=$base?>/js/modernizr.js"></script>
@@ -39,43 +40,43 @@ $urlNivel = base_url('NivelCTR');
  
             <div class="full-reset nav-lateral-list-menu">
                 <ul class="list-unstyled">
-                    <li><a href="<?=$url?>"><i class="zmdi zmdi-home zmdi-hc-fw"></i>&nbsp;&nbsp; Inicio</a></li>
+                    <li><a href="<?=$url?>"><i class="fa fa-home"></i>&nbsp;&nbsp; Inicio</a></li>
                     <li>
-                        <div class="dropdown-menu-button"><i class="zmdi zmdi-calendar zmdi-hc-fw"></i>&nbsp;&nbsp; Elecciones <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <div class="dropdown-menu-button"><i class="fa fa-calendar"></i>&nbsp;&nbsp; Elecciones <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
 						<li>
-							<div class="dropdown-menu-button"><i class="zmdi zmdi-star zmdi-hc-fw"></i>&nbsp;&nbsp; Eleccion Activa <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+							<div class="dropdown-menu-button"><i class="fa fa-star"></i>&nbsp;&nbsp; Eleccion Activa <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
 								<ul class="list-unstyled">
-									<li><a href="Categorias.php"><i class="zmdi zmdi-settings zmdi-hc-fw"></i>&nbsp;&nbsp; Consultar Eleccion</a></li>
+									<li><a href="Categorias.php"><i class="fa fa-cogs"></i>&nbsp;&nbsp; Consultar Eleccion</a></li>
 									<li><a href="Categorias.php"><i class="zmdi zmdi-chart zmdi-hc-fw"></i>&nbsp;&nbsp; Niveles de la Eleccion</a></li>
 								</ul>
 				 		</li>
-                            <li><a href="Centro.php"><i class="zmdi zmdi-folder-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Lista de Elecciones</a></li>
+                            <li><a href="Centro.php"><i class="fa fa-folder-open"></i>&nbsp;&nbsp; Lista de Elecciones</a></li>
 
-                            <li><a href="<?=$urlEleccion?>/Nuevo"><i class="zmdi zmdi-group-work zmdi-hc-fw"></i>&nbsp;&nbsp; Nueva Eleccion</a></li>
+                            <li><a href="<?=$urlEleccion?>/Nuevo"><i class="fa fa-briefcase"></i>&nbsp;&nbsp; Nueva Eleccion</a></li>
                         </ul>
                     </li>
                     <li>
-                        <div class="dropdown-menu-button"><i class="zmdi zmdi-male-female zmdi-hc-fw"></i>&nbsp;&nbsp; Candidatos <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <div class="dropdown-menu-button"><i class="fa fa-male"></i><i class="fa fa-female"></i>&nbsp;&nbsp; Candidatos <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="Admin.php"><i class="zmdi zmdi-accounts-list zmdi-hc-fw"></i>&nbsp;&nbsp; Listado de Candidatos</a></li>
-                            <li><a href="<?=$urlCandidato?>/Nuevo"><i class="zmdi zmdi-accounts-list-alt zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo Candidato</a></li>
+                            <li><a href="Admin.php"><i class="fa fa-users"></i>&nbsp;&nbsp; Listado de Candidatos</a></li>
+                            <li><a href="<?=$urlCandidato?>/Nuevo"><i class="fa fa-id-badge"></i>&nbsp;&nbsp; Nuevo Candidato</a></li>
          
                         </ul>
                     </li>
                     <li>
-                        <div class="dropdown-menu-button"><i class="zmdi zmdi-balance zmdi-hc-fw"></i>&nbsp;&nbsp; Partidos / Grupos <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <div class="dropdown-menu-button"><i class="fa fa-university"></i>&nbsp;&nbsp; Partidos / Grupos <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="book.html"><i class="zmdi zmdi-layers zmdi-hc-fw"></i>&nbsp;&nbsp; Listados de Partidos o Grupos</a></li>
-                            <li><a href="catalog.html"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo Partido o Grupo</a></li>
+                            <li><a href="book.html"><i class="fa fa-object-group"></i>&nbsp;&nbsp; Listados de Partidos o Grupos</a></li>
+                            <li><a href="catalog.html"><i class="fa fa-clipboard"></i>&nbsp;&nbsp; Nuevo Partido o Grupo</a></li>
                         </ul>
                     </li>
                     <li>
-                        <div class="dropdown-menu-button"><i class="zmdi zmdi-account-calendar zmdi-hc-fw"></i>&nbsp;&nbsp;  Usuarios  <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <div class="dropdown-menu-button"><i class="fa fa-universal-access"></i>&nbsp;&nbsp;  Usuarios  <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="<?=$urlUsuario?>/Nuevo"><i class="zmdi zmdi-accounts-outline zmdi-hc-fw"></i>&nbsp;&nbsp; Lista de Usuarios</a></li>
+                            <li><a href="<?=$urlUsuario?>/Nuevo"><i class="fa fa-address-book"></i>&nbsp;&nbsp; Lista de Usuarios</a></li>
                             <li>
-                                <a href="<?=$urlUsuario?>/Nuevo"><i class="zmdi zmdi-account-box-o zmdi-hc-fw"></i>&nbsp;&nbsp; Nuevo Usuario </a>
+                                <a href="<?=$urlUsuario?>/Nuevo"><i class="fa fa-user-plus"></i>&nbsp;&nbsp; Nuevo Usuario </a>
                             </li>
                         </ul>
                     </li>
