@@ -1,5 +1,5 @@
 <?php
-// $persona = array('Cedula'=>'','Nombres'=>'','Apellido1'=>'','Apellido2'=>'');
+$urlUsuario = base_url()."index.php/UsuarioCTR";
 ?>
 <form  method="POST">
 	<div class="row" style="margin-top:25px">
@@ -24,50 +24,67 @@
 <form  method="POST" id="formdatos">
 	<div class="row" style="margin-top:25px">
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
-			<div class="col-lg-3 ">
+			
+	<input type="hidden" name="IdUsuario" value='<?= $persona['IdUsuario']?>'>
+			<div class="col-lg-2 ">
 				<?=asgInputMaterial("","Cedula",null,
 				"Cedula del usuario","readonly",null,null,null,null,null,null,$persona['Cedula']);?>
 			</div>
 			
 			<div class="col-lg-4">
-			<?=asgInputMaterial("","Nombre",null,
+			<?=asgInputMaterial("","Nombres",null,
 				"Si existe en el padron se mostrara los Nombres","readonly required",null,null,null,null,null,null,$persona['Nombres']);?>
 			</div>
 			<div class="col-lg-5">
-			<?=asgInputMaterial("","Apellido",null,
-				"Si existe en el padron se mostrara el Apellido","readonly required",null,null,null,null,null,null,"{$persona['Apellido1']}"." "."{$persona['Apellido2']}");?>
+			<?=asgInputMaterial("","Apellidos",null,
+				"Si existe en el padron se mostrara el Apellido","readonly required",null,null,null,null,null,null,"{$persona['Apellidos']}");?>
 			</div>
+		</div>
+	</div>
+	<div class="row" style="margin-top:25px">
+		<div class="col-xs-12 col-sm-11 col-sm-offset-1">
 			<div class="col-lg-2">
 			<div class="group-material">
-					<select class="material-control tooltips-general" placeholder="Repite la contraseña" required="">
+					<select class="material-control tooltips-general" name="Rol" 
+					value='1' required="">
+					<option value="">Rol de Usuario</option>
+					<?php $roles = usuario_model::listado_roles();
+					foreach($roles as $key=>$rol){
+						
+						echo "<option value='{$rol['IdRol']}'>{$rol['Nombre']}</option>";
+					}
+					?>
 					</select>
 					<span class="highlight"></span>
 					<span class="bar"></span>
-					<label>Rol</label>
-					<small id="message" style="font-weight:bold"></small>
 				</div>
 			</div>
 			<div class="col-lg-5">
 			<?=asgInputMaterial("Contraseña","Password","password","Escribe una contraseña segura",'required',null,"200",
-				"8",null,"Escribe una contraseña de minimo 8 caracteres",null,"")?>
+				"8",null,"Escribe una contraseña de minimo 8 caracteres",null,$persona['Contrasena'])?>
 			</div>
 			<div class="col-lg-5">
 				<div class="group-material">
+				
 					<input type="password"  id="confirm_password" class="material-control tooltips-general" 
 					placeholder="Repite la contraseña" required="" maxlength="200" data-toggle="tooltip" 
-					data-placement="top" title="Repite la contraseña" onkeyup="check()"  onclick="check()"  minlength="8">
+					data-placement="top" title="Repite la contraseña" onkeyup="check()"  onclick="check()" 
+					minlength="8" value="<?=$persona['Contrasena']?>">
 					<span class="highlight"></span>
 					<span class="bar"></span>
 					<label>Repetir contraseña</label>
 					<small id="message" style="font-weight:bold"></small>
 				</div>
 			</div>
-			<div class="col-lg-4"></div>
-			<div class="col-lg-4">
-				<button type="reset"  class="btn btn-info" style="margin-right: 20px;"><i class="fa fa-retweet"></i> &nbsp;&nbsp; Limpiar</button>
-				<button type="submit" id="btnSave" class="btn btn-success" ><i class="fa fa-cloud-upload"></i> &nbsp;&nbsp; Guardar</button>
-			</div> 
 		</div>
+	</div>
+	<div class="col-xs-12 col-sm-10 col-sm-offset-3" >
+		<a class= "btn btn-lg btn-danger" href="<?=$urlUsuario?>" style="margin-right:20px"><i class="fa fa-cancel"> Cancelar</a>
+		<button type="reset"  class="btn btn-lg btn-info" style="margin-right: 20px;"><i class="fa fa-retweet"></i> &nbsp;&nbsp; Limpiar</button>
+		<button type="submit" id="btnSave" class="btn btn-lg btn-success" ><i class="fa fa-cloud-upload"></i> &nbsp;&nbsp; Guardar</button>
+	</div>
+	<div class="col-xs-12 col-sm-10 col-sm-offset-3" >
+		<h3 style="color:red;font-weight:bold"><?=$error?></h3>
 	</div>
 </form>
 <script>

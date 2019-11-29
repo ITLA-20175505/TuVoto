@@ -1,3 +1,6 @@
+<?php
+$urlCandidato = base_url()."index.php/CandidatoCTR";
+?>
 <form  method="POST">
 	<div class="row" style="margin-top:25px">
 		<div class="col-xs-12 col-sm-10 col-sm-offset-0">
@@ -23,48 +26,63 @@
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 			<div class="col-lg-3 ">
 				<?=asgInputMaterial("","Cedula",null,
-				"Cedula del usuario","readonly",null,null,null,null,null,$persona['Cedula']);?>
+				"Cedula del usuario","readonly",null,null,null,null,null,null,$persona['Cedula']);?>
 			</div>
 			
 			<div class="col-lg-4">
-			<?=asgInputMaterial("","Nombre",null,
+			<?=asgInputMaterial("","Nombres",null,
 				"Si existe en el padron se mostrara los Nombres","readonly required",null,null,null,null,null,null,$persona['Nombres']);?>
 			</div>
 			<div class="col-lg-5">
-			<?=asgInputMaterial("","Apellido",null,
+			<?=asgInputMaterial("","Apellidos",null,
 				"Si existe en el padron se mostrara el Apellido","readonly required",null,null,null,null,null,null,"{$persona['Apellido1']}"." "."{$persona['Apellido2']}");?>
 			</div>
 		</div>
 	</div>
 	<div class="row" style="margin-top:25px">
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+		<input type="hidden" name="IdCandidato" value='<?= $persona['IdCandidato']?>'>
 			<div class="col-lg-2"></div>
 			<div class="col-lg-4">
 				<div class="group-material">
-					<select class="material-control tooltips-general" placeholder="Seleccione el Partido" required="">
+					<select class="material-control tooltips-general" name="Partido" required>
+						<option value="">Partido Politico al que Aspira</option>
+						<?php $partidos = partido_model::listado_partido();
+						foreach($partidos as $key=>$partido){
+							
+							echo "<option value='{$partido['IdPartido']}'>{$partido['Nombre']}</option>";
+						}
+						?>	
 					</select>
 					<span class="highlight"></span>
 					<span class="bar"></span>
-					<label>Partido Politico al que Aspira</label>
-					<small id="message" style="font-weight:bold"></small>
 				</div>
 			</div>
 			<div class="col-lg-4">
 				<div class="group-material">
-					<select class="material-control tooltips-general" placeholder="Seleccione el Nivel" required="">
+					<select class="material-control tooltips-general" name="Nivel" required>
+						<option value="">Nivel al que Aspira</option>
+						<?php $niveles = nivel_model::listado_nivel();
+						foreach($niveles as $key=>$nivel){
+							
+							echo "<option value='{$nivel['IdNivel']}'>{$nivel['Nombre']}</option>";
+						}
+						?>		
 					</select>
 					<span class="highlight"></span>
 					<span class="bar"></span>
-					<label>Nivel al que Aspira</label>
-					<small id="message" style="font-weight:bold"></small>
+			
 				</div>
 			</div>
-			<div class="col-lg-4"></div>
-			<div class="col-lg-4">
-				<button type="reset"  class="btn btn-info" style="margin-right: 20px;"><i class="fa fa-retweet"></i> &nbsp;&nbsp; Limpiar</button>
-				<button type="submit" id="btnSave" class="btn btn-success" ><i class="fa fa-cloud-upload"></i> &nbsp;&nbsp; Guardar</button>
-			</div> 
 		</div>
+	</div>
+	<div class="col-xs-12 col-sm-10 col-sm-offset-3" >
+		<a class= "btn btn-lg btn-danger" href="<?=$urlCandidato?>" style="margin-right:20px"><i class="fa fa-cancel"> Cancelar</a>
+		<button type="reset"  class="btn btn-lg btn-info" style="margin-right: 20px;"><i class="fa fa-retweet"></i> &nbsp;&nbsp; Limpiar</button>
+		<button type="submit" id="btnSave" class="btn btn-lg btn-success" ><i class="fa fa-cloud-upload"></i> &nbsp;&nbsp; Guardar</button>
+	</div>
+	<div class="col-xs-12 col-sm-10 col-sm-offset-3" >
+		<h3 style="color:red;font-weight:bold"><?=$error?></h3>
 	</div>
 </form>
 <script>

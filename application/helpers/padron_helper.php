@@ -20,14 +20,14 @@ class Padron{
         $datos['Cedula']= substr($datos['Cedula'],0,3)."-".substr($datos['Cedula'],3,7)."-".substr($datos['Cedula'],10);
         if(count($datos)>4){
            
-            $datos['Error']="";
+			$datos['Error']="";
+			$datos['Apellidos'] = $datos['Apellido1']. " ".$datos['Apellido2'];
             $datos['FechaNacimiento'] = strtotime($datos['FechaNacimiento'] );
             $datos['FechaNacimiento'] = date( 'd-m-Y', $datos['FechaNacimiento'] );
             return $datos;
         }else{
             $datos['Nombres']="";
-            $datos['Apellido1']="";
-            $datos['Apellido2']="";
+            $datos['Apellidos']="";
             $datos['Cedula']="";
             return $datos;
         }
