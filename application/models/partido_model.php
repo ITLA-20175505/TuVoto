@@ -34,13 +34,14 @@ class partido_model extends CI_Model {
         ->result_array();
         return $partido;
 	}
-	static function partido_x_Cedula($Cedula){
+	static function partido_x_nombre($nombre,$IdEleccion){
         $CI =& get_instance();
-        $usuario = $CI->db
-        ->where('Cedula',$Cedula)
+        $partido = $CI->db
+		->where('Nombre',$nombre)
+		->where('IdEleccion',$IdEleccion)
         ->get('partidos')
         ->result_array();
-        return $usuario;
+        return $partido;
     }
 
     static function listado_partido(){

@@ -35,7 +35,7 @@ $urlCandidato = base_url()."index.php/CandidatoCTR";
 			</div>
 			<div class="col-lg-5">
 			<?=asgInputMaterial("","Apellidos",null,
-				"Si existe en el padron se mostrara el Apellido","readonly required",null,null,null,null,null,null,"{$persona['Apellido1']}"." "."{$persona['Apellido2']}");?>
+				"Si existe en el padron se mostrara el Apellido","readonly required",null,null,null,null,null,null,"{$persona['Apellidos']}");?>
 			</div>
 		</div>
 	</div>

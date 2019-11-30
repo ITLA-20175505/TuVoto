@@ -29,7 +29,7 @@ class CandidatoCTR extends CI_Controller {
 				$duplicado = Candidato_model::Candidato_x_Cedula($Candidato['Cedula']);
 				if(count($duplicado) == 0){
 					Candidato_model::guardar_Candidato($Candidato);
-					// redirect('CandidatoCTR');
+					redirect('CandidatoCTR');
 				}else{
 					$Candidato['Error']="";
 					encabezado::aplicar('Nuevo Candidato');

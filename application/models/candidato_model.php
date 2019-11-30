@@ -37,11 +37,11 @@ class candidato_model extends CI_Model {
     }
 	static function candidato_x_Cedula($Cedula){
         $CI =& get_instance();
-        $usuario = $CI->db
+        $candidato = $CI->db
         ->where('Cedula',$Cedula)
         ->get('candidatos')
         ->result_array();
-        return $usuario;
+        return $candidato;
     }
     static function listado_candidato(){
         $CI =& get_instance();
