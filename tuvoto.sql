@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-11-2019 a las 05:27:35
+-- Tiempo de generación: 01-12-2019 a las 17:59:26
 -- Versión del servidor: 8.0.13
 -- Versión de PHP: 7.3.9
 
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `tuvoto`
 --
+CREATE DATABASE IF NOT EXISTS `tuvoto` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE `tuvoto`;
 
 -- --------------------------------------------------------
 
@@ -34,15 +36,17 @@ CREATE TABLE `candidatos` (
   `IdNivel` int(11) NOT NULL,
   `Nombres` varchar(50) NOT NULL,
   `Apellidos` varchar(50) NOT NULL,
-  `Cedula` varchar(13) NOT NULL
+  `Cedula` varchar(13) NOT NULL,
+  `Active` bit(1) DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `candidatos`
 --
 
-INSERT INTO `candidatos` (`IdCandidato`, `IdPartido`, `IdNivel`, `Nombres`, `Apellidos`, `Cedula`) VALUES
-(1, 1, 1, 'FREDDY', 'SOTO FERMIN', '402-0041396-7');
+INSERT INTO `candidatos` (`IdCandidato`, `IdPartido`, `IdNivel`, `Nombres`, `Apellidos`, `Cedula`, `Active`) VALUES
+(2, 2, 1, 'BETEL', 'DE LA CRUZ DE LA CRUZ', '402-3800818-5', b'1'),
+(3, 10, 1, 'FREDDY', 'SOTO FERMIN', '402-0041396-7', b'0');
 
 -- --------------------------------------------------------
 
@@ -57,15 +61,19 @@ CREATE TABLE `elecciones` (
   `FechaFin` date DEFAULT NULL,
   `HoraInicio` datetime DEFAULT NULL,
   `HoraFin` datetime DEFAULT NULL,
-  `Active` bit(1) DEFAULT b'1'
+  `Active` bit(1) DEFAULT b'1',
+  `Eliminado` bit(1) DEFAULT b'0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `elecciones`
 --
 
-INSERT INTO `elecciones` (`IdEleccion`, `Nombre`, `FechaInicio`, `FechaFin`, `HoraInicio`, `HoraFin`, `Active`) VALUES
-(1, '2020', NULL, NULL, NULL, NULL, b'1');
+INSERT INTO `elecciones` (`IdEleccion`, `Nombre`, `FechaInicio`, `FechaFin`, `HoraInicio`, `HoraFin`, `Active`, `Eliminado`) VALUES
+(1, '2020', '2000-01-19', '2000-01-19', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'1', b'1'),
+(2, 'Simultaneas 2020', '2019-11-30', '2019-11-30', '2019-11-30 00:57:02', '2019-11-30 00:57:02', b'0', b'1'),
+(3, 'Eleccion', '2019-01-19', '2020-01-19', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', b'1'),
+(4, 'Elecciones', '2000-01-19', '2000-01-02', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'0', b'1');
 
 -- --------------------------------------------------------
 
@@ -76,15 +84,16 @@ INSERT INTO `elecciones` (`IdEleccion`, `Nombre`, `FechaInicio`, `FechaFin`, `Ho
 CREATE TABLE `niveles` (
   `IdNivel` int(11) NOT NULL,
   `IdEleccion` int(11) NOT NULL,
-  `Nombre` varchar(50) DEFAULT NULL
+  `Nombre` varchar(50) DEFAULT NULL,
+  `Active` bit(1) DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `niveles`
 --
 
-INSERT INTO `niveles` (`IdNivel`, `IdEleccion`, `Nombre`) VALUES
-(1, 1, 'Diputado');
+INSERT INTO `niveles` (`IdNivel`, `IdEleccion`, `Nombre`, `Active`) VALUES
+(1, 1, 'Diputado', b'0');
 
 -- --------------------------------------------------------
 
@@ -96,16 +105,25 @@ CREATE TABLE `partidos` (
   `IdPartido` int(11) NOT NULL,
   `IdEleccion` int(11) NOT NULL,
   `Nombre` varchar(50) NOT NULL,
-  `Color` varchar(25) DEFAULT NULL
+  `Color` varchar(25) DEFAULT NULL,
+  `Active` bit(1) DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `partidos`
 --
 
-INSERT INTO `partidos` (`IdPartido`, `IdEleccion`, `Nombre`, `Color`) VALUES
-(1, 1, 'PLD', 'Morado'),
-(2, 1, 'Diputado', NULL);
+INSERT INTO `partidos` (`IdPartido`, `IdEleccion`, `Nombre`, `Color`, `Active`) VALUES
+(1, 1, 'Ito', 'Morado', b'0'),
+(2, 1, 'Prubea', 'PRM', b'0'),
+(3, 2, 'PRM', NULL, b'1'),
+(5, 2, 'PRD', 'Blanco', b'1'),
+(6, 2, 'erfs', 'dfdf', b'1'),
+(7, 1, 'NAda', 'sdsd', b'1'),
+(8, 1, 'Prm', 'sdsd', b'1'),
+(9, 2, 'PLD', 'Blacno', b'1'),
+(10, 1, 'PRD', 'Blanco', b'1'),
+(11, 2, 'PRSC', 'Bl', b'1');
 
 -- --------------------------------------------------------
 
@@ -115,16 +133,17 @@ INSERT INTO `partidos` (`IdPartido`, `IdEleccion`, `Nombre`, `Color`) VALUES
 
 CREATE TABLE `roles` (
   `IdRol` int(11) NOT NULL,
-  `Nombre` varchar(50) NOT NULL
+  `Nombre` varchar(50) NOT NULL,
+  `Active` bit(1) DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `roles`
 --
 
-INSERT INTO `roles` (`IdRol`, `Nombre`) VALUES
-(1, 'Admin'),
-(2, 'Facilitador');
+INSERT INTO `roles` (`IdRol`, `Nombre`, `Active`) VALUES
+(1, 'Admin', b'1'),
+(2, 'Facilitador', b'1');
 
 -- --------------------------------------------------------
 
@@ -138,17 +157,17 @@ CREATE TABLE `usuarios` (
   `Cedula` varchar(13) NOT NULL,
   `Nombres` varchar(50) NOT NULL,
   `Apellidos` varchar(50) NOT NULL,
-  `Contrasena` varchar(200) DEFAULT NULL
+  `Contrasena` varchar(200) DEFAULT NULL,
+  `Active` bit(1) DEFAULT b'1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`IdUsuario`, `IdRol`, `Cedula`, `Nombres`, `Apellidos`, `Contrasena`) VALUES
-(2, 1, '402-3800818-5', 'BETEL', 'DE LA CRUZ DE LA CRUZ', 'mariposab'),
-(3, 2, '001-0123141-3', 'MARIA', 'FERMIN BETANCOURT', 'serenidad'),
-(4, 1, '402-0041396-7', 'FREDDY', 'SOTO FERMIN', 'fsoto123');
+INSERT INTO `usuarios` (`IdUsuario`, `IdRol`, `Cedula`, `Nombres`, `Apellidos`, `Contrasena`, `Active`) VALUES
+(2, 1, '402-3800818-5', 'BETEL', 'DE LA CRUZ DE LA CRUZ', 'mariposab', b'1'),
+(3, 2, '001-0123141-3', 'MARIA', 'FERMIN BETANCOURT', 'serenidad', b'1');
 
 --
 -- Índices para tablas volcadas
@@ -205,13 +224,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `candidatos`
 --
 ALTER TABLE `candidatos`
-  MODIFY `IdCandidato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IdCandidato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `elecciones`
 --
 ALTER TABLE `elecciones`
-  MODIFY `IdEleccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `IdEleccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `niveles`
@@ -223,7 +242,7 @@ ALTER TABLE `niveles`
 -- AUTO_INCREMENT de la tabla `partidos`
 --
 ALTER TABLE `partidos`
-  MODIFY `IdPartido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `IdPartido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`

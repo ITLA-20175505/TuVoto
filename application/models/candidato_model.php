@@ -49,6 +49,7 @@ class candidato_model extends CI_Model {
 		$CI->db->from('candidatos c');
 		$CI->db->join('niveles n', 'c.IdNivel = n.IdNivel');
 		$CI->db->join('partidos p', 'c.IdPartido = p.IdPartido')
+		->where('c.Active=true')
 		->order_by('IdCandidato ASC');
 		$rs = $CI->db->get()->result_array();
 		 return $rs;
@@ -56,7 +57,7 @@ class candidato_model extends CI_Model {
 
     static function borrar($id){
         $CI =& get_instance();
-        $sql = "delete from candidatos where IdCandidato=?";
+        $sql = "update candidatos set Active=false where IdCandidato=?";
         $CI->db->query($sql, [$id]);
         return $CI->db->affected_rows();
     }

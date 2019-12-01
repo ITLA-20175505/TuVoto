@@ -1,7 +1,4 @@
 
-<div class="page-header">
-	<h1 class="all-tittles">Sistema de Votaciones <small>Reportes y estadísticas</small></h1>
-</div>>
 <div class="container-fluid">
 	<ul class="nav nav-tabs nav-justified" role="tablist">
 		<li role="presentation" class="active"><a href="#statistics" aria-controls="statistics" role="tab" data-toggle="tab">Estadísticas</a></li>

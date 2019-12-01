@@ -27,4 +27,4 @@ $urlPartido = base_url('index.php/PartidoCTR');
 	</div>
 	<p class="lead text-center"><strong><i class="zmdi zmdi-info-outline"></i>&nbsp; ¡Importante!</strong> Para imprimir esta tabla ve a la sección de reportes</p>
 </div>
-			</div>
+</div>

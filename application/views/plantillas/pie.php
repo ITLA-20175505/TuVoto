@@ -1,4 +1,6 @@
-
+<?php
+$base = base_url('base');
+?>
 <footer class="footer full-reset" style="min-height:288px">
             <div class="container-fluid">
                 <div class="row">
@@ -26,4 +28,11 @@
         </footer>
 </div>
 </body>
+<script src="<?=$base?>/js/sweetalert.js"></script>
+<script>
+function eliminar(titulo,mensaje,ico,action,$urlBorrar){
+	console.log('aquui');
+confirmarRegistro(titulo,mensaje,ico,action,$urlBorrar);
+}
+</script>
 </html>

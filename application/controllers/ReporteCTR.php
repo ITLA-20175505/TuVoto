@@ -6,8 +6,8 @@ class ReporteCTR extends CI_Controller {
 
 	public function index()
 	{
-		encabezado::aplicar('Reportes');
-		$this->load->view('Reporte');
+		encabezado::aplicar('Reportes de Votaciones');
+		$this->load->view('ReporteVotacion');
 		pie::aplicar();
 	}
 

@@ -46,6 +46,7 @@ class nivel_model extends CI_Model {
         $CI->db->select('n.*,e.Nombre as Eleccion');
 		$CI->db->from('niveles n');
 		$CI->db->join('elecciones e', 'n.IdEleccion = e.IdEleccion')
+		->where('n.Active=true')
 		->order_by('IdNivel ASC');
 		$rs = $CI->db->get()->result_array();
 		 return $rs;
@@ -53,7 +54,7 @@ class nivel_model extends CI_Model {
 
     static function borrar($id){
         $CI =& get_instance();
-        $sql = "delete from niveles where IdNivel=?";
+		$sql = "update niveles set Active=false where IdNivel=?";
         $CI->db->query($sql, [$id]);
         return $CI->db->affected_rows();
     }

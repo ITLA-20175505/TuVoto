@@ -63,6 +63,12 @@ class PartidoCTR extends CI_Controller {
 				}
 		}
 	}
+	public function Eliminar($id=0){
+		$rs = partido_model::borrar($id);
+		if($rs>0){
+			redirect('PartidoCTR');
+		}
+	}
 
 }
 

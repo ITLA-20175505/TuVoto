@@ -49,6 +49,7 @@ class partido_model extends CI_Model {
 		$CI->db->select('p.*,e.Nombre as Eleccion');
 		$CI->db->from('partidos p');
 		$CI->db->join('elecciones e', 'p.IdEleccion = e.IdEleccion')
+		->where('p.Active=true')
 		->order_by('IdPartido ASC');
 		$rs = $CI->db->get()->result_array();
 		 return $rs;
@@ -56,8 +57,8 @@ class partido_model extends CI_Model {
 
     static function borrar($id){
         $CI =& get_instance();
-        $sql = "delete from partidos where IdPartido=?";
-        $CI->db->query($sql, [$id]);
+		$sql = "update partidos set Active=false where IdPartido=?";
+		$CI->db->query($sql, [$id]);
         return $CI->db->affected_rows();
     }
 

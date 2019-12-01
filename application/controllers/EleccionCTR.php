@@ -60,6 +60,12 @@ class EleccionCTR extends CI_Controller {
 			}
 		}
 	}
+	public function Eliminar($id=0){
+		$rs = eleccion_model::borrar($id);
+		if($rs>0){
+			redirect('EleccionCTR');
+		}
+	}
 
 }
 

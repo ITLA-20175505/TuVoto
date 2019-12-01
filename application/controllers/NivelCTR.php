@@ -30,7 +30,12 @@ class NivelCTR extends CI_Controller {
 			}
 		}
 	}
-
+	public function Eliminar($id=0){
+		$rs = nivel_model::borrar($id);
+		if($rs>0){
+			redirect('NivelCTR');
+		}
+	}
 }
 
 /* End of file NivelCTR.php */

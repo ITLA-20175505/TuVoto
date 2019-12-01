@@ -36,7 +36,8 @@ function AsgUsuarios($u,$urlUsuario){
 		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
 		href="{$urlEditar}" ><i class="fa fa-edit"></i><strong> Editar</strong></a>
 		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
-		onclick="eliminar('{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
+		onclick="eliminar('Eliminar Usuario','Esta Seguro que desea eliminar este Usuario?','question','Eliminar',
+		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
 	
 ROW;
 }
@@ -56,7 +57,8 @@ function AsgPartidos($p,$urlPartido){
 		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
 		href="{$urlEditar}" ><i class="fa fa-edit"></i><strong> Editar</strong></a>
 		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
-		onclick="eliminar('{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
+		onclick="eliminar('Eliminar Partido','Esta Seguro que desea eliminar este Partido?','question','Eliminar',
+		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
 	
 ROW;
 }
@@ -73,7 +75,8 @@ function AsgNiveles($n,$urlNiveles){
 		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
 		href="{$urlEditar}" ><i class="fa fa-edit"></i><strong> Editar</strong></a>
 		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
-		onclick="eliminar('{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
+		onclick="eliminar('Eliminar Nivel','Esta Seguro que desea eliminar este Nivel de Eleccion?','question','Eliminar',
+		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
 	
 ROW;
 }
@@ -97,8 +100,8 @@ function AsgCandidatos($c,$urlCandidato){
 		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
 		href="{$urlEditar}" ><i class="fa fa-edit"></i><strong> Editar</strong></a>
 		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
-		onclick="eliminar('{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
-	
+		onclick="eliminar('Eliminar Candidato','Esta Seguro que desea eliminar este Candidato?','question','Eliminar',
+		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
 ROW;
 }
 function AsgElecciones($e,$urlEleccion){
@@ -123,7 +126,8 @@ function AsgElecciones($e,$urlEleccion){
 		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
 		href="{$urlEditar}" ><i class="fa fa-edit"></i><strong> Editar</strong></a>
 		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
-		onclick="eliminar('{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
+		onclick="eliminar('Eliminar Eleccion','Esta Seguro que desea eliminar esta Eleccion?','question','Eliminar',
+		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
 	
 ROW;
 	}else{
@@ -139,7 +143,8 @@ ROW;
 		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
 		href="{$urlEditar}" ><i class="fa fa-edit"></i><strong> Editar</strong></a>
 		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
-		onclick="eliminar('{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
+		onclick="eliminar('Eliminar Eleccion','Esta Seguro que desea eliminar esta Eleccion?','question','Eliminar',
+		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
 	
 ROW;
 	}

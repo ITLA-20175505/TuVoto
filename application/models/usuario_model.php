@@ -51,6 +51,7 @@ class usuario_model extends CI_Model {
 		$CI->db->select('u.*,r.Nombre as Rol');
 		$CI->db->from('usuarios u');
 		$CI->db->join('roles r', 'u.IdRol = r.IdRol')
+		->where('u.Active=true')
 		->order_by('IdUsuario ASC');
 		$rs = $CI->db->get()->result_array();
 		 return $rs;
@@ -58,19 +59,21 @@ class usuario_model extends CI_Model {
 	static function listado_roles(){
         $CI =& get_instance();
         
-        $rs = $CI->db->get('roles')->result_array();
+		$rs = $CI->db->where('Active=true')
+		->get('roles')->result_array();
         return $rs;
     }
 
     static function borrar($IdUsuario){
         $CI =& get_instance();
-        $sql = "delete from usuarios where IdUsuario=?";
-        $CI->db->query($sql, [$IdUsuario]);
+		$sql = "update usuarios set Active=false where IdUsuario=?";
+		$CI->db->query($sql, [$IdUsuario]);
         return $CI->db->affected_rows();
     }
     static function inicio_sesion($usr, $psw){
         $CI =& get_instance();
-        $rs = $CI->db
+		$rs = $CI->db
+		->where('Active=true')
         ->where(array(
             'cedula'=>$usr,
             'contrasena'=>$psw))

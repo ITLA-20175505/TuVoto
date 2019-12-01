@@ -6,6 +6,7 @@ $urlUsuario = base_url('index.php/UsuarioCTR');
 $urlCandidato = base_url('index.php/CandidatoCTR');
 $urlNivel = base_url('index.php/NivelCTR');
 $urlPartido = base_url('index.php/PartidoCTR');
+$urlReporte = base_url('index.php/ReporteCTR');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -27,10 +28,12 @@ $urlPartido = base_url('index.php/PartidoCTR');
     <script src="<?=$base?>/js/modernizr.js"></script>
     <script src="<?=$base?>/js/bootstrap.min.js"></script>
     <script src="<?=$base?>/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="<?=$base?>/js/main.js"></script>
+	<script src="<?=$base?>/js/main.js"></script>
+	<script sre="<?=$base?>/js/sweetalert.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
+
     <div class="navbar-lateral full-reset">
         <div class="visible-xs font-movile-menu mobile-menu-button"></div>
         <div class="full-reset container-menu-movile custom-scroll-containers">
@@ -57,6 +60,14 @@ $urlPartido = base_url('index.php/PartidoCTR');
 
                             <li><a href="<?=$urlEleccion?>/Nuevo"><i class="fa fa-briefcase"></i>&nbsp;&nbsp; Nueva Eleccion</a></li>
                         </ul>
+					</li>
+					<li>
+                        <div class="dropdown-menu-button"><i class="fa fa-male"></i><i class="fa fa-female"></i>&nbsp;&nbsp; Niveles de Eleccion <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <ul class="list-unstyled">
+                            <li><a href="<?=$urlNivel?>"><i class="fa fa-users"></i>&nbsp;&nbsp; Listado de Niveles</a></li>
+                            <li><a href="<?=$urlNivel?>/Nuevo"><i class="fa fa-id-badge"></i>&nbsp;&nbsp; Nuevo Nivel</a></li>
+         
+                        </ul>
                     </li>
                     <li>
                         <div class="dropdown-menu-button"><i class="fa fa-male"></i><i class="fa fa-female"></i>&nbsp;&nbsp; Candidatos <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
@@ -82,7 +93,7 @@ $urlPartido = base_url('index.php/PartidoCTR');
                             </li>
                         </ul>
                     </li>
-                    <li><a href="report.html"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>&nbsp;&nbsp; Reportes y estadísticas</a></li>
+                    <li><a href="<?=$urlReporte?>/"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>&nbsp;&nbsp; Reportes y estadísticas</a></li>
                     <li><a href="advancesettings.html"><i class="zmdi zmdi-wrench zmdi-hc-fw"></i>&nbsp;&nbsp; Configuraciones avanzadas</a></li>
                 </ul>
             </div>

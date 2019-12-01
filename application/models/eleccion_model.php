@@ -55,7 +55,8 @@ class eleccion_model extends CI_Model {
     static function listado_eleccion(){
         $CI =& get_instance();
         
-		$rs = $CI->db->get('elecciones')->result_array();
+		$rs = $CI->db->where('Eliminado=false')
+		->get('elecciones')->result_array();
 		foreach($rs as $key=>$eleccion){
 			if($eleccion['Active']== true){
 				$rs[$key]['Active'] = "SI";
@@ -68,7 +69,7 @@ class eleccion_model extends CI_Model {
 
     static function borrar($id){
         $CI =& get_instance();
-        $sql = "delete from elecciones where IdEleccion=?";
+        $sql = "update elecciones set Eliminado=true where IdEleccion=?";
         $CI->db->query($sql, [$id]);
         return $CI->db->affected_rows();
     }
