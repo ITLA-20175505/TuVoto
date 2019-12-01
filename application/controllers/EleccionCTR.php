@@ -11,7 +11,25 @@ class EleccionCTR extends CI_Controller {
 		$this->load->view('ListadoElecciones',['elecciones'=>$elecciones]);
 		pie::aplicar();
 	}
-
+	public function EleccionActiva(){
+		$eleccion = eleccion_model::eleccion_x_Activo();
+		if(count($eleccion) > 0){
+			$eleccion = $eleccion[0];
+			$niveles = nivel_model::nivel_x_Eleccion($eleccion['IdEleccion']);
+			$partidos = partido_model::partido_x_id($eleccion['IdEleccion']);
+			$candidatos = candidato_model::candidato_x_Eleccion($eleccion['IdEleccion']);
+			encabezado::aplicar("Eleccion Activa");
+			$this->load->view('EleccionActiva',['eleccion'=>$eleccion,'niveles'=>$niveles,
+			'partidos'=>$partidos,'candidatos'=>$candidatos]);
+			pie::aplicar();
+		}else{
+			$urlEleccion = base_url('index.php/EleccionCTR');
+			$sw = base_url('base/js/sweetalert.js');
+		
+			 echo "<script>alert('No hay Eleccion Activa')
+			 window.location = '{$urlEleccion}';</script>";
+		}
+	}
 	public function Nuevo()
 	{
 		encabezado::aplicar("Nueva Eleccion");
@@ -62,6 +80,18 @@ class EleccionCTR extends CI_Controller {
 	}
 	public function Eliminar($id=0){
 		$rs = eleccion_model::borrar($id);
+		if($rs>0){
+			redirect('EleccionCTR');
+		}
+	}
+	public function Desactivar($id=0){
+		$rs = eleccion_model::desactivar($id);
+		if($rs>0){
+			redirect('EleccionCTR');
+		}
+	}
+	public function Activar($id=0){
+		$rs = eleccion_model::activar($id);
 		if($rs>0){
 			redirect('EleccionCTR');
 		}

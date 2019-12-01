@@ -46,13 +46,54 @@ function confirmarRegistro(titulo, mensaje, ico, action, url) {
             }
         });
     });
-
 }
 
-function eliminarFila(btn) {
-    fila = btn.parentNode.parentNode;
-    fila.parentNode.removeChild(fila);
+function confirmarActivacion(titulo, mensaje, ico, action, url) {
+    return new Promise((resolve) => {
+        Swal.fire({
+            title: titulo,
+            text: mensaje,
+            icon: ico,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: action,
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                // resolve(true);
+                confirmacion('Confirmacion', 'Registro Activado con existo', 'success',
+                    'OK', url);
+                // window.location = url;
+            } else {
+                resolve(false);
+            }
+        });
+    });
+}
 
+function confirmarInactivacion(titulo, mensaje, ico, action, url) {
+    return new Promise((resolve) => {
+        Swal.fire({
+            title: titulo,
+            text: mensaje,
+            icon: ico,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: action,
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.value) {
+                // resolve(true);
+                confirmacion('Confirmacion', 'Registro Desactivado con existo', 'success',
+                    'OK', url);
+                // window.location = url;
+            } else {
+                resolve(false);
+            }
+        });
+    });
 }
 
 function confirmJS(titulo, mensaje, ico, action, btn) {

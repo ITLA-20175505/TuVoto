@@ -34,7 +34,7 @@
       </div>
       <div class="col-lg-2 col-sm-offset-1">
         <h3>Apellidos </h3>
-        <h4><?=$persona['Apellido1']?> <?=$persona['Apellido2']?></h4>
+        <h4><?=$persona['Apellidos']?></h4>
       </div>
   </div>
   <div class="row no-gutters">

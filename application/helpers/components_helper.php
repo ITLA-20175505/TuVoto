@@ -62,6 +62,25 @@ function AsgPartidos($p,$urlPartido){
 	
 ROW;
 }
+function AsgEleccionActivaPartidos($p,$urlPartido){
+
+	$urlEditar = $urlPartido."/Editar/".$p['IdPartido'];
+	$urlBorrar = $urlPartido."/Eliminar/".$p['IdPartido'];
+	$p['Nombre'] = htmlentities($p['Nombre']);
+	$p['Color'] = htmlentities($p['Color']);
+	echo <<<ROW
+		<tr>
+		<th scope='row'>{$p['IdPartido']}</th>
+		<td>{$p['Nombre']}</td>
+		<td>{$p['Color']}</td>
+		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
+		href="{$urlEditar}" ><i class="fa fa-edit"></i><strong> Editar</strong></a>
+		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
+		onclick="eliminar('Eliminar Partido','Esta Seguro que desea eliminar este Partido?','question','Eliminar',
+		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
+	
+ROW;
+}
 function AsgNiveles($n,$urlNiveles){
 	$urlEditar = $urlNiveles."/Editar/".$n['IdNivel'];
 	$urlBorrar = $urlNiveles."/Eliminar/".$n['IdNivel'];
@@ -72,6 +91,22 @@ function AsgNiveles($n,$urlNiveles){
 		<th scope='row'>{$n['IdNivel']}</th>
 		<td>{$n['Nombre']}</td>
 		<td>{$n['Eleccion']}</td>
+		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
+		href="{$urlEditar}" ><i class="fa fa-edit"></i><strong> Editar</strong></a>
+		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
+		onclick="eliminar('Eliminar Nivel','Esta Seguro que desea eliminar este Nivel de Eleccion?','question','Eliminar',
+		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
+	
+ROW;
+}
+function AsgEleccionActivaNiveles($n,$urlNiveles){
+	$urlEditar = $urlNiveles."/Editar/".$n['IdNivel'];
+	$urlBorrar = $urlNiveles."/Eliminar/".$n['IdNivel'];
+	$n['Nombre'] = htmlentities($n['Nombre']);
+	echo <<<ROW
+		<tr>
+		<th scope='row'>{$n['IdNivel']}</th>
+		<td>{$n['Nombre']}</td>
 		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
 		href="{$urlEditar}" ><i class="fa fa-edit"></i><strong> Editar</strong></a>
 		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
@@ -107,6 +142,8 @@ ROW;
 function AsgElecciones($e,$urlEleccion){
 	$urlEditar = $urlEleccion."/Editar/".$e['IdEleccion'];
 	$urlBorrar = $urlEleccion."/Eliminar/".$e['IdEleccion'];
+	$urlDesactivar = $urlEleccion."/Desactivar/".$e['IdEleccion'];
+	$urlActivar = $urlEleccion."/Activar/".$e['IdEleccion'];
 	$e['Nombre'] = htmlentities($e['Nombre']);
 	$e['FechaInicio'] = htmlentities($e['FechaInicio']);
 	$e['FechaFin'] = htmlentities($e['FechaFin']);
@@ -122,13 +159,17 @@ function AsgElecciones($e,$urlEleccion){
 		<td>{$e['FechaFin']}</td>
 		<td>{$e['HoraInicio']}</td>
 		<td>{$e['HoraFin']}</td>
-		<td>{$e['Active']}</td>
-		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
+		<td>
+		<button type="button" style="margin-bottom: 10px; margin-left: 5px;" class="btn btn-warning pull-right"
+		onclick="desactivar('Desactivar Eleccion','Esta Seguro que desea desactivar esta Eleccion?','question','Desactivar',
+		'{$urlDesactivar}')"><i class="fa fa-bookmark"></i><strong> Desactivar</strong></button>
+		<a type="button" style="margin-bottom: 10px; " class="btn btn-primary pull-right"
 		href="{$urlEditar}" ><i class="fa fa-edit"></i><strong> Editar</strong></a>
 		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
 		onclick="eliminar('Eliminar Eleccion','Esta Seguro que desea eliminar esta Eleccion?','question','Eliminar',
 		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
-	
+
+		</td>
 ROW;
 	}else{
 	echo <<<ROW
@@ -139,12 +180,16 @@ ROW;
 		<td>{$e['FechaFin']}</td>
 		<td>{$e['HoraInicio']}</td>
 		<td>{$e['HoraFin']}</td>
-		<td>{$e['Active']}</td>
-		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
+		<td>
+		<button type="button" style="margin-bottom: 10px; margin-left: 5px;" class="btn btn-warning pull-right"
+		onclick="activar('Activar Eleccion','Esta Seguro que desea activar esta Eleccion?','question','Activar',
+		'{$urlActivar}')"><i class="fa fa-bookmark"></i><strong> Activar</strong></button>
+		<a type="button" style="margin-bottom: 10px; " class="btn btn-primary pull-right"
 		href="{$urlEditar}" ><i class="fa fa-edit"></i><strong> Editar</strong></a>
 		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
 		onclick="eliminar('Eliminar Eleccion','Esta Seguro que desea eliminar esta Eleccion?','question','Eliminar',
 		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
+		</td>
 	
 ROW;
 	}

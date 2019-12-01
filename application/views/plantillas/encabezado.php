@@ -52,8 +52,7 @@ $urlReporte = base_url('index.php/ReporteCTR');
 						<li>
 							<div class="dropdown-menu-button"><i class="fa fa-star"></i>&nbsp;&nbsp; Eleccion Activa <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
 								<ul class="list-unstyled">
-									<li><a href="Categorias.php"><i class="fa fa-cogs"></i>&nbsp;&nbsp; Consultar Eleccion</a></li>
-									<li><a href="Categorias.php"><i class="zmdi zmdi-chart zmdi-hc-fw"></i>&nbsp;&nbsp; Niveles de la Eleccion</a></li>
+									<li><a href="<?=$urlEleccion?>/EleccionActiva"><i class="fa fa-cogs"></i>&nbsp;&nbsp; Consultar Eleccion</a></li>
 								</ul>
 				 		</li>
                             <li><a href="<?=$urlEleccion?>"><i class="fa fa-folder-open"></i>&nbsp;&nbsp; Lista de Elecciones</a></li>
@@ -62,10 +61,10 @@ $urlReporte = base_url('index.php/ReporteCTR');
                         </ul>
 					</li>
 					<li>
-                        <div class="dropdown-menu-button"><i class="fa fa-male"></i><i class="fa fa-female"></i>&nbsp;&nbsp; Niveles de Eleccion <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
+                        <div class="dropdown-menu-button"><i class="fa fa-clone"></i>&nbsp;&nbsp; Niveles de Eleccion <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="<?=$urlNivel?>"><i class="fa fa-users"></i>&nbsp;&nbsp; Listado de Niveles</a></li>
-                            <li><a href="<?=$urlNivel?>/Nuevo"><i class="fa fa-id-badge"></i>&nbsp;&nbsp; Nuevo Nivel</a></li>
+                            <li><a href="<?=$urlNivel?>"><i class="fa fa-database"></i>&nbsp;&nbsp; Listado de Niveles</a></li>
+                            <li><a href="<?=$urlNivel?>/Nuevo"><i class="fa fa-magic"></i>&nbsp;&nbsp; Nuevo Nivel</a></li>
          
                         </ul>
                     </li>

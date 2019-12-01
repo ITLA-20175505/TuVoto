@@ -43,7 +43,14 @@ class partido_model extends CI_Model {
         ->result_array();
 		return $partido;
     }
-
+	static function partido_x_eleccion($IdEleccion){
+        $CI =& get_instance();
+        $partido = $CI->db
+		->where('IdEleccion',$IdEleccion)
+        ->get('partidos')
+        ->result_array();
+		return $partido;
+    }
     static function listado_partido(){
         $CI =& get_instance();
 		$CI->db->select('p.*,e.Nombre as Eleccion');

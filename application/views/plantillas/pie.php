@@ -31,8 +31,15 @@ $base = base_url('base');
 <script src="<?=$base?>/js/sweetalert.js"></script>
 <script>
 function eliminar(titulo,mensaje,ico,action,$urlBorrar){
-	console.log('aquui');
+
 confirmarRegistro(titulo,mensaje,ico,action,$urlBorrar);
+}
+function activar(titulo,mensaje,ico,action,$urlBorrar){
+confirmarActivacion(titulo,mensaje,ico,action,$urlBorrar);
+}
+
+function desactivar(titulo,mensaje,ico,action,$urlBorrar){
+confirmarInactivacion(titulo,mensaje,ico,action,$urlBorrar);
 }
 </script>
 </html>

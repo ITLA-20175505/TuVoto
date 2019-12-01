@@ -42,6 +42,18 @@ class candidato_model extends CI_Model {
         ->get('candidatos')
         ->result_array();
         return $candidato;
+	}
+	static function candidato_x_Eleccion($IdEleccion){
+		$CI =& get_instance();
+		$CI->db->select('c.*,n.Nombre as Nivel,p.Nombre as Partido');
+		$CI->db->from('candidatos c');
+		$CI->db->join('niveles n', 'c.IdNivel = n.IdNivel');
+		$CI->db->join('partidos p', 'c.IdPartido = p.IdPartido')
+		->where('c.Active=true')
+		->where('p.IdEleccion',$IdEleccion)
+		->order_by('IdCandidato ASC');
+		$rs = $CI->db->get()->result_array();
+		 return $rs;
     }
     static function listado_candidato(){
         $CI =& get_instance();
