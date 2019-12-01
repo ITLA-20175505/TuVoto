@@ -80,10 +80,7 @@
 		<h3 style="color:red;font-weight:bold"><?=$error?></h3>
 	</div>
 </form>
-<script>
-	 <?php echo "cedula = '".$persona['Cedula']."';";?>
 
-</script>
 <script>
 	function datosEleccion(obj){
 		if(typeof(obj) == 'object'){

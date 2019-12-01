@@ -32,7 +32,7 @@ class partido_model extends CI_Model {
         ->where('IdPartido',$id)
         ->get('partidos')
         ->result_array();
-        return $partido;
+		return $partido;
 	}
 	static function partido_x_nombre($nombre,$IdEleccion){
         $CI =& get_instance();
@@ -41,14 +41,17 @@ class partido_model extends CI_Model {
 		->where('IdEleccion',$IdEleccion)
         ->get('partidos')
         ->result_array();
-        return $partido;
+		return $partido;
     }
 
     static function listado_partido(){
         $CI =& get_instance();
-        
-        $rs = $CI->db->get('partidos')->result_array();
-        return $rs;
+		$CI->db->select('p.*,e.Nombre as Eleccion');
+		$CI->db->from('partidos p');
+		$CI->db->join('elecciones e', 'p.IdEleccion = e.IdEleccion')
+		->order_by('IdPartido ASC');
+		$rs = $CI->db->get()->result_array();
+		 return $rs;
     }
 
     static function borrar($id){

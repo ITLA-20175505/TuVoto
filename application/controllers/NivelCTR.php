@@ -7,7 +7,10 @@ class NivelCTR extends CI_Controller {
 
 	public function index()
 	{
-	
+		$niveles = nivel_model::listado_nivel();
+		encabezado::aplicar("Listado de Niveles de Elecciones");
+		$this->load->view('ListadoNiveles',['niveles'=>$niveles]);
+		pie::aplicar();
 	}
 	public function Nuevo()
 	{

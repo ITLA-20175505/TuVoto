@@ -5,7 +5,10 @@ class UsuarioCTR extends CI_Controller {
 
 	public function index()
 	{
-		
+		$usuarios = usuario_model::listado_usuario();
+		encabezado::aplicar("Listado de Usuarios");
+		$this->load->view('ListadoUsuarios',['usuarios'=>$usuarios]);
+		pie::aplicar();
 	}
 
 	public function Nuevo()

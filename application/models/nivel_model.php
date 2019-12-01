@@ -43,9 +43,12 @@ class nivel_model extends CI_Model {
     }
     static function listado_nivel(){
         $CI =& get_instance();
-        
-        $rs = $CI->db->get('niveles')->result_array();
-        return $rs;
+        $CI->db->select('n.*,e.Nombre as Eleccion');
+		$CI->db->from('niveles n');
+		$CI->db->join('elecciones e', 'n.IdEleccion = e.IdEleccion')
+		->order_by('IdNivel ASC');
+		$rs = $CI->db->get()->result_array();
+		 return $rs;
     }
 
     static function borrar($id){

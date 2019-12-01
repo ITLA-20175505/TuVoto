@@ -45,9 +45,13 @@ class candidato_model extends CI_Model {
     }
     static function listado_candidato(){
         $CI =& get_instance();
-        
-        $rs = $CI->db->get('candidatos')->result_array();
-        return $rs;
+		$CI->db->select('c.*,n.Nombre as Nivel,p.Nombre as Partido');
+		$CI->db->from('candidatos c');
+		$CI->db->join('niveles n', 'c.IdNivel = n.IdNivel');
+		$CI->db->join('partidos p', 'c.IdPartido = p.IdPartido')
+		->order_by('IdCandidato ASC');
+		$rs = $CI->db->get()->result_array();
+		 return $rs;
     }
 
     static function borrar($id){

@@ -53,7 +53,7 @@ $urlPartido = base_url('index.php/PartidoCTR');
 									<li><a href="Categorias.php"><i class="zmdi zmdi-chart zmdi-hc-fw"></i>&nbsp;&nbsp; Niveles de la Eleccion</a></li>
 								</ul>
 				 		</li>
-                            <li><a href="Centro.php"><i class="fa fa-folder-open"></i>&nbsp;&nbsp; Lista de Elecciones</a></li>
+                            <li><a href="<?=$urlEleccion?>"><i class="fa fa-folder-open"></i>&nbsp;&nbsp; Lista de Elecciones</a></li>
 
                             <li><a href="<?=$urlEleccion?>/Nuevo"><i class="fa fa-briefcase"></i>&nbsp;&nbsp; Nueva Eleccion</a></li>
                         </ul>
@@ -61,7 +61,7 @@ $urlPartido = base_url('index.php/PartidoCTR');
                     <li>
                         <div class="dropdown-menu-button"><i class="fa fa-male"></i><i class="fa fa-female"></i>&nbsp;&nbsp; Candidatos <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="Admin.php"><i class="fa fa-users"></i>&nbsp;&nbsp; Listado de Candidatos</a></li>
+                            <li><a href="<?=$urlCandidato?>"><i class="fa fa-users"></i>&nbsp;&nbsp; Listado de Candidatos</a></li>
                             <li><a href="<?=$urlCandidato?>/Nuevo"><i class="fa fa-id-badge"></i>&nbsp;&nbsp; Nuevo Candidato</a></li>
          
                         </ul>
@@ -69,14 +69,14 @@ $urlPartido = base_url('index.php/PartidoCTR');
                     <li>
                         <div class="dropdown-menu-button"><i class="fa fa-university"></i>&nbsp;&nbsp; Partidos / Grupos <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="book.html"><i class="fa fa-object-group"></i>&nbsp;&nbsp; Listados de Partidos o Grupos</a></li>
+                            <li><a href="<?=$urlPartido?>"><i class="fa fa-object-group"></i>&nbsp;&nbsp; Listados de Partidos o Grupos</a></li>
                             <li><a href="<?=$urlPartido?>/Nuevo"><i class="fa fa-clipboard"></i>&nbsp;&nbsp; Nuevo Partido o Grupo</a></li>
                         </ul>
                     </li>
                     <li>
                         <div class="dropdown-menu-button"><i class="fa fa-universal-access"></i>&nbsp;&nbsp;  Usuarios  <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
-                            <li><a href="<?=$urlUsuario?>/Nuevo"><i class="fa fa-address-book"></i>&nbsp;&nbsp; Lista de Usuarios</a></li>
+                            <li><a href="<?=$urlUsuario?>"><i class="fa fa-address-book"></i>&nbsp;&nbsp; Lista de Usuarios</a></li>
                             <li>
                                 <a href="<?=$urlUsuario?>/Nuevo"><i class="fa fa-user-plus"></i>&nbsp;&nbsp; Nuevo Usuario </a>
                             </li>

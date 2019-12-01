@@ -48,8 +48,12 @@ class usuario_model extends CI_Model {
     static function listado_usuario(){
         $CI =& get_instance();
         
-        $rs = $CI->db->get('usuarios')->result_array();
-        return $rs;
+		$CI->db->select('u.*,r.Nombre as Rol');
+		$CI->db->from('usuarios u');
+		$CI->db->join('roles r', 'u.IdRol = r.IdRol')
+		->order_by('IdUsuario ASC');
+		$rs = $CI->db->get()->result_array();
+		 return $rs;
 	}
 	static function listado_roles(){
         $CI =& get_instance();

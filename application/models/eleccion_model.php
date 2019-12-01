@@ -34,6 +34,15 @@ class eleccion_model extends CI_Model {
         ->result_array();
         return $eleccion;
 	}
+	static function eleccion_x_Nombre($nombre){
+        $CI =& get_instance();
+        $eleccion = $CI->db
+        ->where('Nombre',$nombre)
+        ->get('elecciones')
+        ->result_array();
+        return $eleccion;
+    }
+
 	static function eleccion_x_Activo(){
         $CI =& get_instance();
         $eleccion = $CI->db
@@ -46,7 +55,14 @@ class eleccion_model extends CI_Model {
     static function listado_eleccion(){
         $CI =& get_instance();
         
-        $rs = $CI->db->get('elecciones')->result_array();
+		$rs = $CI->db->get('elecciones')->result_array();
+		foreach($rs as $key=>$eleccion){
+			if($eleccion['Active']== true){
+				$rs[$key]['Active'] = "SI";
+			}else{
+				$rs[$key]['Active'] = "NO";
+			}
+		}
         return $rs;
     }
 

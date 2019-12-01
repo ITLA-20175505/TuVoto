@@ -5,7 +5,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class CandidatoCTR extends CI_Controller {
 	public function index()
 	{
-		
+		$candidatos = candidato_model::listado_candidato();
+		encabezado::aplicar("Listado de Candidatos Postulados");
+		$this->load->view('ListadoCandidatos',['candidatos'=>$candidatos]);
+		pie::aplicar();
 	}
 
 	public function Nuevo()
@@ -41,7 +44,7 @@ class CandidatoCTR extends CI_Controller {
 		}
 	}
 	public function Editar($id = 0){
-		$Candidato = Candidato_model::Candidato_x_IdCandidato($id);
+		$Candidato = Candidato_model::candidato_x_id($id);
 		$Candidato[0]['Error']="";
 		encabezado::aplicar("Editar Candidato Registrado");
 		$this->load->view('FormCandidato',['persona'=>$Candidato[0],'error'=>false]);
@@ -61,7 +64,7 @@ class CandidatoCTR extends CI_Controller {
 				'Nombres'=>$nombres[0]);
 				$duplicado = Candidato_model::Candidato_x_Cedula($Candidato['Cedula']);
 				$mismoRegistro = Candidato_model::Candidato_x_IdCandidato($_POST['IdCandidato']);
-				if((count($duplicado) == 1 || count($duplicado==0))&& 
+				if((count($duplicado) == 1 || count($duplicado)==0)&& 
 				$mismoRegistro[0]['IdCandidato'] == $Candidato['IdCandidato']){
 					Candidato_model::guardar_Candidato($Candidato);
 					redirect('CandidatoCTR');
