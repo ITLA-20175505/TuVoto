@@ -41,5 +41,8 @@ confirmarActivacion(titulo,mensaje,ico,action,$urlBorrar);
 function desactivar(titulo,mensaje,ico,action,$urlBorrar){
 confirmarInactivacion(titulo,mensaje,ico,action,$urlBorrar);
 }
+function confirmarSave(titulo,mensaje,ico,action,$urlBorrar){
+confirmacion(titulo,mensaje,ico,action,$urlBorrar);
+}
 </script>
 </html>

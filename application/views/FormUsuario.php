@@ -1,5 +1,7 @@
 <?php
 $urlUsuario = base_url()."index.php/UsuarioCTR";
+echo "<script>".$confirmacion."</script>";
+
 ?>
 <form  method="POST">
 	<div class="row" style="margin-top:25px">
@@ -105,6 +107,4 @@ var check = function() {
 <script>
 	 <?php echo "cedula = '".$persona['Cedula']."';";?>
 	 document.getElementById('message').innerHTML = "";
-</script>
-<script>
 </script>

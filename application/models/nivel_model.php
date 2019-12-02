@@ -33,14 +33,15 @@ class nivel_model extends CI_Model {
         ->result_array();
         return $nivel;
     }
-	static function nivel_x_Cedula($Cedula){
+	static function nivel_x_nombre($nombre,$IdEleccion){
         $CI =& get_instance();
-        $usuario = $CI->db
-        ->where('Cedula',$Cedula)
+        $nivel = $CI->db
+		->where('Nombre',$nombre)
+		->where('IdEleccion',$IdEleccion)
         ->get('niveles')
         ->result_array();
-        return $usuario;
-	}
+		return $nivel;
+    }
 	static function nivel_x_Eleccion($IdEleccion){
         $CI =& get_instance();
         $usuario = $CI->db

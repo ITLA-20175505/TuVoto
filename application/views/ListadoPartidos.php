@@ -8,6 +8,7 @@ $urlPartido = base_url('index.php/PartidoCTR');
 				<tr class="success">
 					<th class="text-center">ID</th>
 					<th class="text-center">Nombre</th>
+					<th class="text-center">Siglas</th>
 					<th class="text-center">Color</th>
 					<th class="text-center">Eleccion</th>
 					<th class="text-center">Acciones</th>

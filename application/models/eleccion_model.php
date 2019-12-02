@@ -67,7 +67,10 @@ class eleccion_model extends CI_Model {
         return $rs;
     }
     static function activar($id){
-        $CI =& get_instance();
+		eleccion_model::desactivar($id);
+		$CI =& get_instance();
+		$sql = "update elecciones set Active=false where IdEleccion!=?";
+        $CI->db->query($sql, [$id]);
         $sql = "update elecciones set Active=true where IdEleccion=?";
         $CI->db->query($sql, [$id]);
         return $CI->db->affected_rows();

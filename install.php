@@ -12,7 +12,143 @@ $con = mysqli_connect($_POST['DB_HOST'],$_POST['DB_USER'],$_POST['DB_PASSWORD'])
     mysqli_query($con,"DROP `{$_POST['DB_NAME']}`");
     mysqli_query($con,"CREATE DATABASE  `{$_POST['DB_NAME']}`" );
 	mysqli_query($con,"USE `{$_POST['DB_NAME']}`");   
-
+	mysqli_query($con,"CREATE TABLE `candidatos` (
+		`IdCandidato` int(11) NOT NULL,
+		`IdPartido` int(11) NOT NULL,
+		`IdNivel` int(11) NOT NULL,
+		`Nombres` varchar(50) NOT NULL,
+		`Apellidos` varchar(50) NOT NULL,
+		`Cedula` varchar(13) NOT NULL,
+		`Active` bit(1) DEFAULT b'1'
+	  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
+	mysqli_query($con,"CREATE TABLE `elecciones` (
+		`IdEleccion` int(11) NOT NULL,
+		`Nombre` varchar(75) NOT NULL,
+		`FechaInicio` date DEFAULT NULL,
+		`FechaFin` date DEFAULT NULL,
+		`HoraInicio` datetime DEFAULT NULL,
+		`HoraFin` datetime DEFAULT NULL,
+		`Active` bit(1) DEFAULT b'0',
+		`Eliminado` bit(1) DEFAULT b'0'
+	  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+	  ");
+	mysqli_query($con,"CREATE TABLE `niveles` (
+		`IdNivel` int(11) NOT NULL,
+		`IdEleccion` int(11) NOT NULL,
+		`Nombre` varchar(50) DEFAULT NULL,
+		`Active` bit(1) DEFAULT b'1'
+	  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
+	mysqli_query($con,"CREATE TABLE `partidos` (
+		`IdPartido` int(11) NOT NULL,
+		`IdEleccion` int(11) NOT NULL,
+		`Siglas` varchar(10) DEFAULT NULL,
+		`Nombre` varchar(50) NOT NULL,
+		`Color` varchar(25) DEFAULT NULL,
+		`Active` bit(1) DEFAULT b'1'
+	  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+	  ");
+	mysqli_query($con,"CREATE TABLE `roles` (
+		`IdRol` int(11) NOT NULL,
+		`Nombre` varchar(50) NOT NULL
+	  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+	  ");
+	mysqli_query($con,"INSERT INTO `roles` (`IdRol`, `Nombre`) VALUES
+	(1, 'Admin'),
+	(2, 'Facilitador');");
+	mysqli_query($con,"CREATE TABLE `usuarios` (
+		`IdUsuario` int(11) NOT NULL,
+		`IdRol` int(11) NOT NULL,
+		`Cedula` varchar(13) NOT NULL,
+		`Nombres` varchar(50) NOT NULL,
+		`Apellidos` varchar(50) NOT NULL,
+		`Contrasena` varchar(200) DEFAULT NULL,
+		`Active` bit(1) DEFAULT b'1'
+	  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+	  ");
+	mysqli_query($con,"INSERT INTO `usuarios`
+	 (`IdUsuario`, `IdRol`, `Cedula`, `Nombres`, `Apellidos`, `Contrasena`, `Active`) VALUES
+	(1, 1, '402-0041396-7', 'Freddy', 'Soto Fermin', 'fsoto123', b'1');");
+	mysqli_query($con,"ALTER TABLE `candidatos`
+	ADD PRIMARY KEY (`IdCandidato`),
+	ADD UNIQUE KEY `idx_candidato_cedula` (`Cedula`),
+	ADD KEY `fk_Candidato_Partido` (`IdPartido`),
+	ADD KEY `fk_Candidato_Nivel` (`IdNivel`);");
+	mysqli_query($con,"ALTER TABLE `elecciones`
+	ADD PRIMARY KEY (`IdEleccion`);
+  ");
+	mysqli_query($con,"ALTER TABLE `niveles`
+	ADD PRIMARY KEY (`IdNivel`),
+	ADD KEY `fk_Niveles_Eleccion` (`IdEleccion`);");
+	mysqli_query($con,"ALTER TABLE `partidos`
+	ADD PRIMARY KEY (`IdPartido`),
+	ADD KEY `fk_Partido_Eleccion` (`IdEleccion`);");
+	mysqli_query($con,"ALTER TABLE `roles`
+	ADD PRIMARY KEY (`IdRol`);
+  ");
+	mysqli_query($con,"ALTER TABLE `usuarios`
+	ADD PRIMARY KEY (`IdUsuario`),
+	ADD UNIQUE KEY `idx_usuario_cedula` (`Cedula`),
+	ADD KEY `fk_Usuario_Rol` (`IdRol`);");
+	mysqli_query($con,"ALTER TABLE `candidatos`
+	MODIFY `IdCandidato` int(11) NOT NULL AUTO_INCREMENT;
+  ");
+	mysqli_query($con,"ALTER TABLE `elecciones`
+	MODIFY `IdEleccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  ");
+	mysqli_query($con,"ALTER TABLE `niveles`
+	MODIFY `IdNivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  ");
+	mysqli_query($con,"ALTER TABLE `partidos`
+	MODIFY `IdPartido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  ");
+	mysqli_query($con,"ALTER TABLE `roles`
+	MODIFY `IdRol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  ");
+	mysqli_query($con,"ALTER TABLE `usuarios`
+	MODIFY `IdUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  ");
+	mysqli_query($con,"ALTER TABLE `candidatos`
+	ADD CONSTRAINT `fk_Candidato_Nivel` FOREIGN KEY (`IdNivel`) REFERENCES `niveles` (`idnivel`),
+	ADD CONSTRAINT `fk_Candidato_Partido` FOREIGN KEY (`IdPartido`) REFERENCES `partidos` (`idpartido`);
+  ");
+	mysqli_query($con,"ALTER TABLE `niveles`
+	ADD CONSTRAINT `fk_Niveles_Eleccion` FOREIGN KEY (`IdEleccion`) REFERENCES `elecciones` (`ideleccion`);
+  ");
+	mysqli_query($con,"ALTER TABLE `partidos`
+	ADD CONSTRAINT `fk_Partido_Eleccion` FOREIGN KEY (`IdEleccion`) REFERENCES `elecciones` (`ideleccion`);
+  ");
+	mysqli_query($con,"ALTER TABLE `usuarios`
+	ADD CONSTRAINT `fk_Usuario_Rol` FOREIGN KEY (`IdRol`) REFERENCES `roles` (`idrol`);
+	");
+	mysqli_query($con,"
+	CREATE TABLE `votaciones` (
+	  `IdVotacion` int(11) NOT NULL,
+	  `Cedula` varchar(13) NOT NULL,
+	  `Nombres` varchar(50) DEFAULT NULL,
+	  `Apellidos` varchar(50) DEFAULT NULL,
+	  `IdEleccion` int(11) NOT NULL,
+	  `Active` bit(1) DEFAULT b'1',
+	  `FechaNacimiento` date DEFAULT NULL
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+	");
+	mysqli_query($con,"CREATE TABLE `votaciones_detalle` (
+		`IdVotacion` int(11) NOT NULL,
+		`IdNivel` int(11) NOT NULL,
+		`IdCandidato` int(11) NOT NULL
+	  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;");
+	mysqli_query($con,"ALTER TABLE `votaciones`
+	ADD PRIMARY KEY (`IdVotacion`),
+	ADD UNIQUE KEY `idx_votaciones_cedula` (`Cedula`),
+	ADD KEY `fk_votaciones_elecciones` (`IdEleccion`);
+  ");
+	mysqli_query($con,"ALTER TABLE `votaciones_detalle`
+	ADD PRIMARY KEY (`IdVotacion`,`IdNivel`,`IdCandidato`);
+  ");
+	mysqli_query($con,"ALTER TABLE `votaciones`
+	MODIFY `IdVotacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;");
+	mysqli_query($con,"ALTER TABLE `votaciones`
+	ADD CONSTRAINT `fk_votaciones_elecciones` FOREIGN KEY (`IdEleccion`) REFERENCES `elecciones` (`ideleccion`);
+  COMMIT;");
     $archivo = <<<ARCHIVO
 	<?php
 	// Base de Datos

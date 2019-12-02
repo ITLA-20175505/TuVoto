@@ -1,8 +1,5 @@
 <?php
-
-// var_dump($partido);
-// var_dump($error);
-// var_dump($eleccion);
+echo "<script>".$confirmacion."</script>";
 ?>
 
 <form  method="POST" id="formdatos">
@@ -17,7 +14,15 @@
 				<?=asgInputMaterial("Color que lo represente","Color",null,
 				"","required",null,null,null,null,null,null,$partido['Color']);?>
 			</div>
-			<div class="col-lg-5 col-sm-offset-3">
+		</div>
+	</div>
+	<div class="row" style="margin-top:25px">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+			<div class="col-lg-6">
+					<?=asgInputMaterial("Siglas del Partido","Siglas",null,
+					"","required",null,null,null,null,null,null,$partido['Siglas']);?>
+			</div>
+			<div class="col-lg-6">
 				<select class="material-control tooltips-general text-center" name="Eleccion" required>
 					<option onclick="datosEleccion('borrar')" value="">Seleccione la Eleccion</option>
 					<?php
@@ -27,10 +32,9 @@
 							echo "<option  onclick='datosEleccion({$json})'   value='{$eleccion['IdEleccion']}'>{$eleccion['Nombre']}</option>";
 						}
 					?>
-					</select>
-					<span class="highlight"></span>
-					<span class="bar"></span>
-					
+				</select>
+				<span class="highlight"></span>
+				<span class="bar"></span>	
 			</div>
 		</div>
 	</div>

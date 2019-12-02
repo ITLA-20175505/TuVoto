@@ -19,6 +19,15 @@ function asgInputMaterial($label,$nombre,$type="text",$placeholder="",$readonly=
 </div>
 CODIGO;
 }
+ function getSigno($fecha) {
+	if($fecha != ""){
+		list($year,$month,$day) = explode('-',$fecha);
+		$month = intval($month);
+		$signos = array('', 'Capricornio', 'Acuario', 'Piscis', 'Aries', 'Tauro', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagitario', 'Capricornio');
+		$last_day = array('', 19, 18, 20, 20, 21, 21, 22, 22, 21, 22, 21, 20, 19);
+		return ($day > $last_day[$month]) ? $signos[$month+ 1] : $signos[$month];
+	}
+}
 function AsgUsuarios($u,$urlUsuario){
 	$urlEditar = $urlUsuario."/Editar/".$u['IdUsuario'];
 	$urlBorrar = $urlUsuario."/Eliminar/".$u['IdUsuario'];
@@ -48,10 +57,13 @@ function AsgPartidos($p,$urlPartido){
 	$p['Nombre'] = htmlentities($p['Nombre']);
 	$p['Color'] = htmlentities($p['Color']);
 	$p['Eleccion'] = htmlentities($p['Eleccion']);
+	$p['Siglas'] = htmlentities($p['Siglas']);
+
 	echo <<<ROW
 		<tr>
 		<th scope='row'>{$p['IdPartido']}</th>
 		<td>{$p['Nombre']}</td>
+		<td>{$p['Siglas']}</td>
 		<td>{$p['Color']}</td>
 		<td>{$p['Eleccion']}</td>
 		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
@@ -72,6 +84,7 @@ function AsgEleccionActivaPartidos($p,$urlPartido){
 		<tr>
 		<th scope='row'>{$p['IdPartido']}</th>
 		<td>{$p['Nombre']}</td>
+		<td>{$p['Siglas']}</td>
 		<td>{$p['Color']}</td>
 		<td><a type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-primary pull-right"
 		href="{$urlEditar}" ><i class="fa fa-edit"></i><strong> Editar</strong></a>
@@ -137,6 +150,20 @@ function AsgCandidatos($c,$urlCandidato){
 		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
 		onclick="eliminar('Eliminar Candidato','Esta Seguro que desea eliminar este Candidato?','question','Eliminar',
 		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
+ROW;
+}
+function AsgVotantes($c){
+	$c['Nombres'] = htmlentities($c['Nombres']);
+	$c['Apellidos'] = htmlentities($c['Apellidos']);
+	$c['Cedula'] = htmlentities($c['Cedula']);
+
+	$signo = getSigno($c['FechaNacimiento']);
+	echo <<<ROW
+		<tr>
+		<td scope='row'>{$c['Cedula']}</td>
+		<td>{$c['Nombres']}</td>
+		<td>{$c['Apellidos']}</td>
+		<td>{$signo}</td>
 ROW;
 }
 function AsgElecciones($e,$urlEleccion){

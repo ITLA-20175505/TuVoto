@@ -1,3 +1,6 @@
+<?php
+echo "<script>".$confirmacion."</script>";
+?>
 
 <form  method="POST" id="formdatos">
 	<div class="row" >
@@ -18,7 +21,7 @@
 		</div>
 	</div>
 	<div class="row" style="margin-top:25px">
-		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+		<div class="col-xs-12 col-sm-10 col-sm-offset-3">
 			<div class="col-lg-4">
 			<?=asgInputMaterial("","HoraInicio","time",
 				"Hora de Inicio"," required",null,null,null,null,null,null,$eleccion['HoraInicio']);?>
@@ -26,19 +29,6 @@
 			<div class="col-lg-4">
 			<?=asgInputMaterial("","HoraFin","time",
 				"Hora de Terminacion"," required",null,null,null,null,null,null,$eleccion['HoraFin']);?>
-			</div>
-			<div class="col-lg-4" style="margin-top:13px">
-			<div class="group-material">
-					<select class="material-control tooltips-general" name="Active" required="">
-						<option value=""><label>Desea Activar la Eleccion?</label></option>
-						<option value="true">Si</option>
-						<option value="false">No</option>
-					</select>
-					<span class="highlight"></span>
-					<span class="bar"></span>
-					
-					<small id="message" style="font-weight:bold"></small>
-				</div>
 			</div>
 		</div>
 	</div>

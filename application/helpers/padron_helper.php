@@ -16,8 +16,10 @@ class Padron{
         $output = curl_exec($ch);
         // close curl resource to free up system resources
         curl_close($ch);   
-        $datos= json_decode($output,true);
-        $datos['Cedula']= substr($datos['Cedula'],0,3)."-".substr($datos['Cedula'],3,7)."-".substr($datos['Cedula'],10);
+		$datos= json_decode($output,true);
+		if(isset($datos['Cedula'])){
+			$datos['Cedula']= substr($datos['Cedula'],0,3)."-".substr($datos['Cedula'],3,7)."-".substr($datos['Cedula'],10);
+		}
         if(count($datos)>4){
            
 			$datos['Error']="";
@@ -28,8 +30,11 @@ class Padron{
         }else{
             $datos['Nombres']="";
             $datos['Apellidos']="";
-            $datos['Cedula']="";
+			$datos['Cedula']="";
+			$datos['FechaNacimiento']="";
+			$datos['LugarNacimiento']="";
             return $datos;
         }
-    }
+	}
+
 }

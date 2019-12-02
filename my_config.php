@@ -3,6 +3,6 @@
     define('DB_HOST','localhost');
     define('DB_USER','root');
     define('DB_PASSWORD','123456');
-	define('DB_NAME','tuvoto');
+	define('DB_NAME','tuvoyo');
 	// Base URL
-	define('BASE_URL','http://localhost/TuVoto/');
+	define('BASE_URL','http://localhost/Tuvoto/');

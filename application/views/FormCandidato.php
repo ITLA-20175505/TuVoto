@@ -1,5 +1,7 @@
 <?php
 $urlCandidato = base_url()."index.php/CandidatoCTR";
+echo "<script>".$confirmacion."</script>";
+
 ?>
 <form  method="POST">
 	<div class="row" style="margin-top:25px">

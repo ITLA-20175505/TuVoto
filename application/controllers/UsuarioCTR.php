@@ -14,7 +14,7 @@ class UsuarioCTR extends CI_Controller {
 	public function Nuevo()
 	{
 		encabezado::aplicar("Nuevo Usuario");
-		$this->load->view('FormUsuario',['persona'=>false,'error'=>false]);
+		$this->load->view('FormUsuario',['persona'=>false,'error'=>false,'confirmacion'=>false]);
 		pie::aplicar();
 		if($_POST){
 			if(isset($_POST['ConsultaCedula']) && $_POST['ConsultaCedula']!= ""){
@@ -24,7 +24,7 @@ class UsuarioCTR extends CI_Controller {
 				$data['Contrasena']="";
 				$data['IdUsuario']="";
 				encabezado::aplicar('Nuevo Usuario');
-				$this->load->view('FormUsuario',['persona'=>$data]);
+				$this->load->view('FormUsuario',['persona'=>$data,'error'=>false,'confirmacion'=>false]);
 				pie::aplicar();
 			}else if(isset($_POST['Cedula']) && $_POST['Cedula']!=""){
 				$nombres = explode(" ",$_POST['Nombres']);
@@ -34,12 +34,18 @@ class UsuarioCTR extends CI_Controller {
 				$duplicado = usuario_model::usuario_x_Cedula($usuario['Cedula']);
 				if(count($duplicado) == 0){
 					usuario_model::guardar_usuario($usuario);
-					redirect('UsuarioCTR');
+					$urlUsuario = base_url('index.php/UsuarioCTR');
+					$confirmar =
+					"confirmarSave('Aviso','El Registro fue guardado exitosamente!','success',
+					'OK','$urlUsuario');";
+					encabezado::aplicar("Nuevo Usuario");
+					$this->load->view('FormUsuario',['persona'=>false,'error'=>false,'confirmacion'=>$confirmar]);
+					pie::aplicar();
 				}else{
 					$usuario['Error']="";
 					encabezado::aplicar('Nuevo Usuario');
 					$this->load->view('FormUsuario',['persona'=>$usuario,
-					'error'=>"Ya existe un usuario con esta cedula"]);
+					'error'=>"Ya existe un usuario con esta cedula",'confirmacion'=>false]);
 					pie::aplicar();
 				}
 			}
@@ -49,7 +55,7 @@ class UsuarioCTR extends CI_Controller {
 		$usuario = usuario_model::usuario_x_IdUsuario($id);
 		$usuario[0]['Error']="";
 		encabezado::aplicar("Editar Usuario Registrado");
-		$this->load->view('FormUsuario',['persona'=>$usuario[0],'error'=>false]);
+		$this->load->view('FormUsuario',['persona'=>$usuario[0],'error'=>false,'confirmacion'=>false]);
 		pie::aplicar();
 		if($_POST){
 			if(isset($_POST['ConsultaCedula']) && $_POST['ConsultaCedula']!= ""){
@@ -69,12 +75,18 @@ class UsuarioCTR extends CI_Controller {
 				if((count($duplicado) == 1 || count($duplicado==0))&& 
 				$mismoRegistro[0]['IdUsuario'] == $usuario['IdUsuario']){
 					usuario_model::guardar_usuario($usuario);
-					redirect('UsuarioCTR');
+					$urlUsuario = base_url('index.php/UsuarioCTR');
+					$confirmar =
+					"confirmarSave('Aviso','El Registro fue guardado exitosamente!','success',
+					'OK','$urlUsuario');";
+					encabezado::aplicar("Nuevo Usuario");
+					$this->load->view('FormUsuario',['persona'=>false,'error'=>false,'confirmacion'=>$confirmar]);
+					pie::aplicar();
 				}else{
 					$usuario['Error']="";
 					encabezado::aplicar('Nuevo Usuario');
 					$this->load->view('FormUsuario',['persona'=>$usuario,
-					'error'=>"Ya existe un usuario con esta cedula"]);
+					'error'=>"Ya existe un usuario con esta cedula",'confirmacion'=>false]);
 					pie::aplicar();
 				}
 			}

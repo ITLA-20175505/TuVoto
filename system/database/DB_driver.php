@@ -399,10 +399,8 @@ abstract class CI_DB_driver {
 
 		// Connect to the database and set the connection ID
 		$this->conn_id = $this->db_connect($this->pconnect)
-		or die ("
-        <script>
-        window.location = 'install.php'
-        </script>");
+		or die (redirect(base_url('install.php')));
+		
 		// No connection resource? Check if there is a failover else throw an error
 		if ( ! $this->conn_id)
 		{

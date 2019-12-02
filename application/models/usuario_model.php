@@ -59,8 +59,7 @@ class usuario_model extends CI_Model {
 	static function listado_roles(){
         $CI =& get_instance();
         
-		$rs = $CI->db->where('Active=true')
-		->get('roles')->result_array();
+		$rs = $CI->db->get('roles')->result_array();
         return $rs;
     }
 

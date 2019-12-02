@@ -1,10 +1,10 @@
 <?php
-
+echo "<script>".$confirmacion."</script>";
+var_dump($_POST);
 ?>
 <form  method="POST" id="consultaForm">
 	<div class="row" style="margin-top:25px">
-		<div class="col-xs-12 col-sm-10 col-sm-offset-0">
-			<div class="col-lg-11 col-sm-offset-3">
+		<div class="col-xs-12 col-sm-12 col-sm-offset-2">
 				<div class="group-material">
 					<div class="col-lg-8">
 					
@@ -18,29 +18,37 @@
 					</div>
 				</div>
 			</div>
-		</div>
+	</div>
+	<div class="col-xs-12 col-sm-10 col-sm-offset-3" >
+		<h3 style="color:red;font-weight:bold"><?=$error?></h3>
 	</div>
 </form>
 <form id="formConfirmar" method="POST">
   <input type="hidden" value=""  id="Active" name="Active">
   <div class="row no-gutters">
-      <div class="col-lg-2 col-sm-offset-2">
-        <h3>Cedula </h3>
-        <h4><?=$persona['Cedula']?></h4>
-      </div>
-      <div class="col-lg-2 col-sm-offset-1">
-        <h3>Nombres </h3>
-        <h4><?=$persona['Nombres']?></h4>
-      </div>
-      <div class="col-lg-2 col-sm-offset-1">
-        <h3>Apellidos </h3>
-        <h4><?=$persona['Apellidos']?></h4>
-      </div>
+		<input type="hidden" name="IdVotacion" value="<?=$persona['IdVotacion']?>">
+		<input type="hidden" name="Eleccion" value="<?=$eleccion['IdEleccion']?>">
+		<div class="col-lg-2 col-sm-offset-2">
+			<h3>Cedula </h3>
+			<h4><?=$persona['Cedula']?></h4>
+			<input type="text" name="Cedula" value="<?=$persona['Cedula']?>">
+		</div>
+		<div class="col-lg-2 col-sm-offset-1">
+			<h3>Nombres </h3>
+			<h4><?=$persona['Nombres']?></h4>
+			<input type="text" name="Nombres" value="<?=$persona['Nombres']?>">
+		</div>
+		<div class="col-lg-2 col-sm-offset-1">
+			<h3>Apellidos </h3>
+			<h4><?=$persona['Apellidos']?></h4>
+			<input type="text" name="Apellidos" value="<?=$persona['Apellidos']?>">
+		</div>
   </div>
   <div class="row no-gutters">
     <div class="col-lg-3 col-sm-offset-2">
       <h3>Fecha de Nacimiento </h3>
-      <h4><?=$persona['FechaNacimiento']?></h4>
+			<h4><?=$persona['FechaNacimiento']?></h4>
+			<input type="text" name="FechaNacimiento" value="<?=$persona['FechaNacimiento']?>">
     </div>
     <div class="col-lg-3 col-sm-offset-0">
       <h3>Lugar de Nacimiento </h3>
@@ -58,11 +66,40 @@
     </div>
   </div>
 </form>
+<div style="margin-top:30px">
+	<h3> Personas que han ejercido su voto</h3>
+	<hr/>
+	<div class="col-xs-12">
+		<div class="table-responsive">
+			<table class="table table-hover text-center">
+				<thead>
+					<tr class="success">
+						<th class="text-center">Cedula</th>
+						<th class="text-center">Nombre</th>
+						<th class="text-center">Apellidos</th>
+						<th class="text-center">Signo Zodiacal</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php $votantes = votacion_model::votacion_x_Eleccion($eleccion['IdEleccion']);
+					foreach($votantes as $key=>$votante){
+						AsgVotantes($votante);
+					}
+					?>
+				</tbody>
+				<tfoot>
+					
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
 <script>
 function confirmar(){
   validado =document.getElementById('Active').value;
   if(validado == "true"){
-    document.getElementById('formConfirmar').submit();
+		$("#formConfirmar").submit();
+   
   }
 }
 </script>
@@ -99,20 +136,4 @@ if($img !=""){
     document.getElementById('Active').checked = false;
 }
 }
-</script>
-<script>
-
-   function isNumberKey(evt){
-       var charCode=(evt.which) ? evt.which:  evt.keyCode;
-       if(charCode !=&& charCode>31
-       &&(charCode<48||charCode>57))
-       return false;
-   }
-
-   function Disable_Control_C(){
-       var keystroke = String.fromCharCode(event.keyCode).toLocaleLowerCase();
-       if(event.ctrlKey && (keystroke=='c'|| keystroke=='v')){
-           event.returnValue = false;
-       }
-   }
 </script>

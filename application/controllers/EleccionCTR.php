@@ -31,23 +31,32 @@ class EleccionCTR extends CI_Controller {
 		}
 	}
 	public function Nuevo()
-	{
+	{	
 		encabezado::aplicar("Nueva Eleccion");
-		$this->load->view('FormEleccion',['eleccion'=>false,'error'=>false]);
+		$this->load->view('FormEleccion',['eleccion'=>false,'error'=>false,'confirmacion'=>false]);
 		pie::aplicar();
 		if($_POST){
 			$eleccion = array('IdEleccion'=>$_POST['IdEleccion'],'Nombre'=>$_POST['Nombre'],
 			'FechaInicio'=>$_POST['FechaInicio'],'FechaFin'=>$_POST['FechaFin'],'HoraInicio'=>$_POST['HoraInicio'],
-			'HoraFin'=>$_POST['HoraFin'],'Active'=>$_POST['Active']);
+			'HoraFin'=>$_POST['HoraFin']);
 			$duplicado = eleccion_model::eleccion_x_Nombre($eleccion['Nombre']);
 			if(count($duplicado) == 0){
 				$rs = eleccion_model::guardar_eleccion($eleccion);
-				redirect('EleccionCTR');
+				$urlActivar = base_url('index.php/EleccionCTR/Activar/').$rs['IdEleccion'];
+				$urlEleccion = base_url('index.php/EleccionCTR');
+				$confirmar =
+				"activar('Registro Guardado','Desea Activar esta Eleccion?','success',
+				'Activar','$urlActivar');";
+				encabezado::aplicar("Nueva Eleccion");
+				$this->load->view('FormEleccion',['eleccion'=>false,'error'=>false,
+				'confirmacion'=>$confirmar]);
+				pie::aplicar();
 			}else{
+
 				$eleccion['Error']="";
 				encabezado::aplicar('Nueva Eleccion');
 				$this->load->view('FormEleccion',['eleccion'=>$eleccion,
-				'error'=>"Ya existe un Partido con este nombre"]);
+				'error'=>"Ya existe un Partido con este nombre",'confirmacion'=>false]);
 				pie::aplicar();
 			}
 		}
@@ -56,24 +65,31 @@ class EleccionCTR extends CI_Controller {
 	{
 		$eleccion = eleccion_model::eleccion_x_id($id)[0];
 		encabezado::aplicar("Editar Eleccion");
-		$this->load->view('FormEleccion',['eleccion'=>$eleccion,'error'=>false]);
+		$this->load->view('FormEleccion',['eleccion'=>$eleccion,'error'=>false,'confirmacion'=>false]);
 		pie::aplicar();
 		if($_POST){
 			$eleccion = array('IdEleccion'=>$_POST['IdEleccion'],'Nombre'=>$_POST['Nombre'],
 			'FechaInicio'=>$_POST['FechaInicio'],'FechaFin'=>$_POST['FechaFin'],'HoraInicio'=>$_POST['HoraInicio'],
-			'HoraFin'=>$_POST['HoraFin'],'Active'=>$_POST['Active']);
+			'HoraFin'=>$_POST['HoraFin']);
 			$duplicado = eleccion_model::eleccion_x_Nombre($eleccion['Nombre']);
 			$mismoRegistro = eleccion_model::eleccion_x_id($eleccion['IdEleccion'])[0];
 		
 			if(count($duplicado) == 0 || ($mismoRegistro['IdEleccion'] == $duplicado[0]['IdEleccion'] &&
 			$mismoRegistro['Nombre'] == $eleccion['Nombre'])){
 				$rs = eleccion_model::guardar_eleccion($eleccion);
-				redirect('EleccionCTR');
+				$urlEleccion = base_url('index.php/EleccionCTR');
+				$confirmar =
+				"confirmarSave('Aviso','El Registro fue guardado exitosamente!','success',
+				'OK','$urlEleccion');";
+				encabezado::aplicar("Nueva Eleccion");
+				$this->load->view('FormEleccion',['eleccion'=>false,'error'=>false,
+				'confirmacion'=>$confirmar]);
+				pie::aplicar();
 			}else{
 				$eleccion['Error']="";
 				encabezado::aplicar('Nueva Eleccion');
 				$this->load->view('FormEleccion',['eleccion'=>$eleccion,
-				'error'=>"Ya existe un Partido con este nombre"]);
+				'error'=>"Ya existe una Eleccion con este nombre",'confirmacion'=>false]);
 				pie::aplicar();
 			}
 		}
