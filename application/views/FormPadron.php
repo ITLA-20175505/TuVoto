@@ -1,6 +1,6 @@
 <?php
 echo "<script>".$confirmacion."</script>";
-var_dump($_POST);
+
 ?>
 <form  method="POST" id="consultaForm">
 	<div class="row" style="margin-top:25px">
@@ -19,36 +19,35 @@ var_dump($_POST);
 				</div>
 			</div>
 	</div>
-	<div class="col-xs-12 col-sm-10 col-sm-offset-3" >
-		<h3 style="color:red;font-weight:bold"><?=$error?></h3>
-	</div>
+
 </form>
 <form id="formConfirmar" method="POST">
-  <input type="hidden" value=""  id="Active" name="Active">
-  <div class="row no-gutters">
-		<input type="hidden" name="IdVotacion" value="<?=$persona['IdVotacion']?>">
+  <input type="hidden" value=""  id="Validado" name="Validado">
+  <input type="hidden" name="IdVotacion" value="<?=$persona['IdVotacion']?>">
 		<input type="hidden" name="Eleccion" value="<?=$eleccion['IdEleccion']?>">
+<input type="hidden" id="Cedula" name="Cedula">
+  <div class="row no-gutters">
 		<div class="col-lg-2 col-sm-offset-2">
 			<h3>Cedula </h3>
 			<h4><?=$persona['Cedula']?></h4>
-			<input type="text" name="Cedula" value="<?=$persona['Cedula']?>">
+	
 		</div>
 		<div class="col-lg-2 col-sm-offset-1">
 			<h3>Nombres </h3>
 			<h4><?=$persona['Nombres']?></h4>
-			<input type="text" name="Nombres" value="<?=$persona['Nombres']?>">
+		
 		</div>
 		<div class="col-lg-2 col-sm-offset-1">
 			<h3>Apellidos </h3>
 			<h4><?=$persona['Apellidos']?></h4>
-			<input type="text" name="Apellidos" value="<?=$persona['Apellidos']?>">
+	
 		</div>
   </div>
   <div class="row no-gutters">
     <div class="col-lg-3 col-sm-offset-2">
       <h3>Fecha de Nacimiento </h3>
 			<h4><?=$persona['FechaNacimiento']?></h4>
-			<input type="text" name="FechaNacimiento" value="<?=$persona['FechaNacimiento']?>">
+			
     </div>
     <div class="col-lg-3 col-sm-offset-0">
       <h3>Lugar de Nacimiento </h3>
@@ -65,6 +64,9 @@ var_dump($_POST);
       <button type="button" class="btn btn-success btn-lg" onclick="confirmar()">Confirmar Pasar a Casilla </button>
     </div>
   </div>
+  <div class="col-xs-12 col-sm-10 col-sm-offset-4" >
+		<h3 id="error" style="color:red;font-weight:bold"><?=$error?></h3>
+	</div>
 </form>
 <div style="margin-top:30px">
 	<h3> Personas que han ejercido su voto</h3>
@@ -95,11 +97,16 @@ var_dump($_POST);
 	</div>
 </div>
 <script>
+	 <?php echo "cedula = '".$persona['Cedula']."';";?>
+	document.getElementById('Cedula').value = cedula;
+</script>
+<script>
 function confirmar(){
-  validado =document.getElementById('Active').value;
+  validado =document.getElementById('Validado').value;
   if(validado == "true"){
 		$("#formConfirmar").submit();
-   
+  }else{
+	Swal.fire("Confirme Foto del Votante");
   }
 }
 </script>
@@ -120,20 +127,17 @@ if($img !=""){
   cancelButtonText: 'No, Volver Atras!'
 }).then((result) => {
   if (result.value) {
-    document.getElementById('Active').value = true;
-    document.getElementById('Active').checked = true;
+    document.getElementById('Validado').value = true;
   } else if (
     /* Read more about handling dismissals below */
     result.dismiss === Swal.DismissReason.cancel
   ) {
-    document.getElementById('Active').value = false;
-    document.getElementById('Active').checked = false;
+    document.getElementById('Validado').value = false;
   }
 });
 }else{
   document.getElementById('errorFoto').innerHTML = "<strong>Debe Consultar el Padron</strong>";
-  document.getElementById('Active').value = false;
-    document.getElementById('Active').checked = false;
+  document.getElementById('Validado').value = false;
 }
 }
 </script>

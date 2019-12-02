@@ -5,13 +5,18 @@ $urlPadron=base_url('PadronCT');
 $base = base_url('base');
 $url = base_url('EleccionCTR');
 session_start();
-
+$usuario = null;
 if($_POST){
 $verif_usuario = usuario_model::inicio_sesion($_POST['usuario'], $_POST['password']);
 if($verif_usuario['login'] == "true"){
 	$_SESSION['usuario']=$_POST['usuario'];
-	$_SESSION['IdUsuario']=$verif_usuario['IdUsuario'];
-	redirect('Main');
+  $_SESSION['IdUsuario']=$verif_usuario['IdUsuario'];
+  $usuario = usuario_model::usuario_x_Cedula($_SESSION['usuario'])[0];
+  if($usuario['IdRol'] ==1){
+    redirect('Main');
+  }else{
+    redirect('PadronCTR');
+  }
 	// redirect(base_url('EleccionCTR/Nuevo'));
 	$malpass='';
 }else{
@@ -20,8 +25,13 @@ if($verif_usuario['login'] == "true"){
 }else{
 $malpass='';
 }
-if(isset($_SESSION['user'])){
-redirect(base_url(''));
+if(isset($_SESSION['usuario'])){
+  $usuario = usuario_model::usuario_x_Cedula($_SESSION['usuario'])[0];
+  if($usuario['IdRol'] ==1){
+    redirect('Main');
+  }else{
+    redirect('PadronCTR');
+  }
 }
 
 ?>
@@ -51,12 +61,13 @@ redirect(base_url(''));
 </head>
 
 <body class="full-cover-background" style="background-image:url(<?=$base?>/img/eleccion.jpg); box-sizing: border-box;
-	width: 100%;height: 100%;background-size: 100% 100%;">
+  width: 100%;height: 100%;background-size: 100% 100%;">
+ 
     <div class="form-container">
         <p class="text-center" style="margin-top: 17px;">
             <i class="zmdi zmdi-account-circle zmdi-hc-5x"></i>
        </p>
-       <h4 class="text-center all-tittles" style="margin-bottom: 30px;">inicia sesión con tu cuenta</h4>
+       <h4 class="text-center all-tittles" style="margin-bottom: 30px;">inicia sesión con tu cuenta </h4>
 
        <form method="POST">
        <label><i class="zmdi zmdi-account"></i> &nbsp; Cedula</label>

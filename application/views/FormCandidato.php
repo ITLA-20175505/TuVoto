@@ -52,7 +52,7 @@ echo "<script>".$confirmacion."</script>";
 						<?php $partidos = partido_model::listado_partido();
 						foreach($partidos as $key=>$partido){
 							
-							echo "<option value='{$partido['IdPartido']}'>{$partido['Nombre']}</option>";
+							echo "<option value='{$partido['IdPartido']}'>{$partido['Siglas']}</option>";
 						}
 						?>	
 					</select>

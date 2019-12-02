@@ -1,4 +1,11 @@
 <?php
+session_start();
+$usuario = null;
+if(isset($_SESSION['usuario'])){
+    $usuario = usuario_model::usuario_x_Cedula($_SESSION['usuario'])[0];
+}else{
+    redirect('');
+}
 $base = base_url('base');
 $url = base_url('index.php');
 $urlEleccion = base_url('index.php/EleccionCTR');
@@ -7,6 +14,11 @@ $urlCandidato = base_url('index.php/CandidatoCTR');
 $urlNivel = base_url('index.php/NivelCTR');
 $urlPartido = base_url('index.php/PartidoCTR');
 $urlReporte = base_url('index.php/ReporteCTR');
+if($usuario['IdRol'] == 1){
+
+}else{
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -33,7 +45,9 @@ $urlReporte = base_url('index.php/ReporteCTR');
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
-
+<?php 
+if($usuario['IdRol'] == 1){
+    echo <<<CODIGO
     <div class="navbar-lateral full-reset">
         <div class="visible-xs font-movile-menu mobile-menu-button"></div>
         <div class="full-reset container-menu-movile custom-scroll-containers">
@@ -45,7 +59,7 @@ $urlReporte = base_url('index.php/ReporteCTR');
  
             <div class="full-reset nav-lateral-list-menu">
                 <ul class="list-unstyled">
-                    <li><a href="<?=$url?>"><i class="fa fa-home"></i>&nbsp;&nbsp; Inicio</a></li>
+                    <li><a href="<?=$url?>/Main"><i class="fa fa-home"></i>&nbsp;&nbsp; Inicio</a></li>
                     <li>
                         <div class="dropdown-menu-button"><i class="fa fa-calendar"></i>&nbsp;&nbsp; Elecciones <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw"></i></div>
                         <ul class="list-unstyled">
@@ -99,15 +113,24 @@ $urlReporte = base_url('index.php/ReporteCTR');
         </div>
     </div>
     <div class="content-page-container full-reset custom-scroll-containers" >
+CODIGO;
+}
+else{
+    echo <<<CODIGO
+    <div class=" full-reset custom-scroll-containers" >
+CODIGO;
+}
+?>
+   
         <nav class="navbar-user-top full-reset">
             <ul class="list-unstyled full-reset">
                 <figure>
-                   <img src="assets/img/user01.png" alt="user-picture" class="img-responsive img-circle center-box">
+                   <img src="http:\/\/173.249.49.169:88\/api\/test\/foto\/40200413967" alt=""  class="img-responsive img-circle center-box">
                 </figure>
                 <li style="color:#fff; cursor:default;">
-                    <span class="all-tittles">Admin Name</span>
+                    <span class="all-tittles"><?=$usuario['Nombres']?> <?=$usuario['Apellidos']?></span>
                 </li>
-                <li  class="tooltips-general exit-system-button" data-href="index.html" data-placement="bottom" title="Salir del sistema">
+                <li  class="tooltips-general exit-system-button"  data-href="<?=$url?>" data-placement="bottom" title="Salir del sistema">
                     <i class="zmdi zmdi-power"></i>
                 </li>
                 <li  class="tooltips-general search-book-button" data-href="searchbook.html" data-placement="bottom" title="Buscar libro">
@@ -126,3 +149,4 @@ $urlReporte = base_url('index.php/ReporteCTR');
                 <h1 class="all-tittles"><?php echo $titulo ?><small></small></h1>
             </div>
         </div>
+

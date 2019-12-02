@@ -134,4 +134,4 @@ $autoload['language'] = array();
 |	$autoload['model'] = array('first_model' => 'first');
 */
 $autoload['model'] = array('eleccion_model','partido_model','nivel_model','usuario_model','candidato_model'
-						,'votacion_model');
+						,'votacion_model','filtros_model');

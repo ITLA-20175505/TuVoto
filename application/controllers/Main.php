@@ -5,8 +5,15 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
+		$filtros = array();
+		$filtros['Cant_Admin'] = filtros_model::cant_admin();
+		$filtros['Cant_Facilitador'] = filtros_model::cant_facilitador();
+		$filtros['Cant_Partidos'] = filtros_model::cant_Partidos();
+		$filtros['Cant_Candidatos'] = filtros_model::cant_Candidatos();
+		$filtros['Cant_Niveles'] = filtros_model::cant_Niveles();
+		$filtros['Cant_Votos'] = filtros_model::cant_Votos();
 		encabezado::aplicar("Sistema Elecciones");
-		$this->load->view('Inicio');
+		$this->load->view('Inicio',['filtros'=>$filtros]);
 		pie::aplicar();
 	}
 

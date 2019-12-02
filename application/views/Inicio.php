@@ -1,4 +1,6 @@
+<?php
 
+?>
 <section class="full-reset text-center">
 <article class="tile">
 		<div class="tile-icon full-reset"><i class="zmdi zmdi-timer"></i></div>
@@ -7,33 +9,33 @@
 	</article>
 	<article class="tile">
 		<div class="tile-icon full-reset"><i class="zmdi zmdi-face"></i></div>
-		<div class="tile-name all-tittles">administradores</div>
-		<div class="tile-num full-reset">7</div>
+		<div class="tile-name all-tittles">Administradores</div>
+		<div class="tile-num full-reset"><?=$filtros['Cant_Admin']?></div>
 	</article>
 	<article class="tile">
 		<div class="tile-icon full-reset"><i class="zmdi zmdi-accounts"></i></div>
 		<div class="tile-name all-tittles">Personal de Mesa Electoral</div>
-		<div class="tile-num full-reset">70</div>
+		<div class="tile-num full-reset"><?=$filtros['Cant_Facilitador']?></div>
 	</article>
 	<article class="tile">
 		<div class="tile-icon full-reset"><i class="zmdi zmdi-balance"></i></div>
 		<div class="tile-name all-tittles">Partidos</div>
-		<div class="tile-num full-reset">11</div>
+		<div class="tile-num full-reset"><?=$filtros['Cant_Partidos']?></div>
 	</article>
 	<article class="tile">
 		<div class="tile-icon full-reset"><i class="zmdi zmdi-male-female"></i></div>
 		<div class="tile-name all-tittles" style="width: 90%;">Candidatos</div>
-		<div class="tile-num full-reset">17</div>
+		<div class="tile-num full-reset"><?=$filtros['Cant_Candidatos']?></div>
 	</article>
 	<article class="tile">
 		<div class="tile-icon full-reset"><i class="zmdi zmdi-layers"></i></div>
 		<div class="tile-name all-tittles">Niveles</div>
-		<div class="tile-num full-reset">21</div>
+		<div class="tile-num full-reset"><?=$filtros['Cant_Niveles']?></div>
 	</article>
 	<article class="tile">
 		<div class="tile-icon full-reset"><i class="zmdi zmdi-border-color"></i></div>
 		<div class="tile-name all-tittles">Votos</div>
-		<div class="tile-num full-reset">77</div>
+		<div class="tile-num full-reset"><?=$filtros['Cant_Votos']?></div>
 	</article>
 
 	<article class="tile">
