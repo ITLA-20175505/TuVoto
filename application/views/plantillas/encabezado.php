@@ -1,10 +1,8 @@
 <?php
-session_start();
+
 $usuario = null;
 if(isset($_SESSION['usuario'])){
     $usuario = usuario_model::usuario_x_Cedula($_SESSION['usuario'])[0];
-}else{
-    redirect('');
 }
 $base = base_url('base');
 $url = base_url('index.php');
@@ -14,11 +12,7 @@ $urlCandidato = base_url('index.php/CandidatoCTR');
 $urlNivel = base_url('index.php/NivelCTR');
 $urlPartido = base_url('index.php/PartidoCTR');
 $urlReporte = base_url('index.php/ReporteCTR');
-if($usuario['IdRol'] == 1){
 
-}else{
-    
-}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -117,6 +111,7 @@ CODIGO;
 }
 else{
     echo <<<CODIGO
+		
     <div class=" full-reset custom-scroll-containers" >
 CODIGO;
 }
@@ -124,8 +119,9 @@ CODIGO;
    
         <nav class="navbar-user-top full-reset">
             <ul class="list-unstyled full-reset">
+               
                 <figure>
-                   <img src="http:\/\/173.249.49.169:88\/api\/test\/foto\/40200413967" alt=""  class="img-responsive img-circle center-box">
+                   <img src="" alt=""  class="img-responsive img-circle center-box">
                 </figure>
                 <li style="color:#fff; cursor:default;">
                     <span class="all-tittles"><?=$usuario['Nombres']?> <?=$usuario['Apellidos']?></span>
@@ -142,6 +138,9 @@ CODIGO;
                 <li class="mobile-menu-button visible-xs" style="float: left !important;">
                     <i class="zmdi zmdi-menu"></i>
                 </li>
+                <figure>
+                    <img src="<?=$base?>/img/TuVotoRD.png"  class="pull-left img-responsive center-box" style="width:10%;border:none">
+                </figure>
             </ul>
 		</nav>
 		<div class="container">
