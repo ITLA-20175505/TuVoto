@@ -28,7 +28,7 @@ class CandidatoCTR extends CI_Controller {
 				$nombres = explode(" ",$_POST['Nombres']);
 				$Candidato = array("IdCandidato"=>$_POST['IdCandidato'],"IdPartido"=>$_POST['Partido'],
 				'IdNivel'=>$_POST['Nivel'],'Cedula'=>$_POST['Cedula'],'Apellidos'=>$_POST['Apellidos'],
-				'Nombres'=>$nombres[0]);
+				'Nombres'=>$nombres[0],'Foto'=>$_POST['Foto']);
 				$duplicado = Candidato_model::Candidato_x_Cedula($Candidato['Cedula']);
 				if(count($duplicado) == 0){
 					Candidato_model::guardar_Candidato($Candidato);

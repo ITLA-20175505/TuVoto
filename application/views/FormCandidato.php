@@ -25,6 +25,7 @@ echo "<script>".$confirmacion."</script>";
 </form>
 <form  method="POST" id="formdatos">
 	<div class="row" style="margin-top:25px">
+		<input type="hidden" name="Foto" value="<?=$persona['Foto']?>">
 		<div class="col-xs-12 col-sm-10 col-sm-offset-1">
 			<div class="col-lg-3 ">
 				<?=asgInputMaterial("","Cedula",null,

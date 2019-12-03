@@ -59,6 +59,15 @@ class nivel_model extends CI_Model {
         ->result_array();
         return $niveles;
     }
+    static function nombre_niveles_x_Eleccion($IdEleccion){
+        $CI =& get_instance();
+        $niveles = $CI->db
+        ->select('Nombre')
+        ->where('IdEleccion',$IdEleccion)
+        ->get('niveles')
+        ->result_array();
+        return $niveles;
+    }
     static function listado_nivel(){
         $CI =& get_instance();
         $CI->db->select('n.*,e.Nombre as Eleccion');

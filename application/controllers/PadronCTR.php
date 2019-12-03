@@ -10,10 +10,16 @@ class PadronCTR extends CI_Controller {
 		$eleccion = eleccion_model::eleccion_x_Activo();
 		if(count($eleccion)>0){
 			$eleccion = $eleccion[0];
-			encabezado::aplicar("Mesa Electoral No. 25");
+			if((strtotime($eleccion['FechaInicio']) >= strtotime('now')) && (strtotime($eleccion['FechaFin']) <= strtotime('now'))) {
+				$urlEleccion = base_url('index.php/EleccionCTR');
+			echo "<script>alert('La Fecha de Esta Eleccion ya pasó')
+			window.location = '{$urlEleccion}';</script>";
+			}else{
+				encabezado::aplicar("Mesa Electoral No. 25");
 			$this->load->view('FormPadron',['persona'=>false,'error'=>false,'confirmacion'=>false,
 			'eleccion'=>$eleccion]);
 			pie::aplicar();
+			}
 		}else{
 			$urlEleccion = base_url('index.php/EleccionCTR');
 			echo "<script>alert('No hay Eleccion Activa')

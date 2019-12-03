@@ -91,7 +91,8 @@ class eleccion_model extends CI_Model {
 
     static function GetCasilla($IdEleccion,$IdNivel){
         $CI =& get_instance();
-		$CI->db->select("c.IdCandidato as IdCandidato,concat(c.Nombres, ' ',c.Apellidos) as Candidato,p.Siglas as Partido, p.Color as Color,n.Nombre as Nivel,n.IdNivel as IdNivel");
+        $CI->db->select("c.IdCandidato as IdCandidato,concat(c.Nombres, ' ',c.Apellidos) as Candidato,p.Siglas as Partido, p.Color as Color,n.Nombre as Nivel,n.IdNivel as IdNivel,
+        c.Foto as Foto");
 		$CI->db->from('candidatos c');
         $CI->db->join('partidos p', 'c.IdPartido = p.IdPartido');
         $CI->db->join('elecciones e', 'e.IdEleccion = p.IdEleccion');

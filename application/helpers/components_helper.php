@@ -203,7 +203,7 @@ ROW;
 	echo <<<ROW
 		<tr>
 		<th scope='row'>{$e['IdEleccion']}</th>
-		<td>{$e['Nombres']}</td>
+		<td>{$e['Nombre']}</td>
 		<td>{$e['FechaInicio']}</td>
 		<td>{$e['FechaFin']}</td>
 		<td>{$e['HoraInicio']}</td>
@@ -222,24 +222,27 @@ ROW;
 ROW;
 	}
 }
-function AsgCasilla($casilla,$count){
+function AsgCasilla($casilla,$count,$nombres){
 	$detalle = array('IdNivel'=>$casilla['IdNivel'],'IdCandidato'=>$casilla['IdCandidato']);
 	$niveles = json_encode($count);
+	$titulos = json_encode($nombres);
+	$base = base_url('base');
 	echo <<<CASILLA
 	<div class="col-xl-2 p-1" style="min-width:220px;" >				
 		<div class="card" style="min-height:400px">
-			<img src="https://via.placeholder.com/200x150" class="w-100">
+			<img src="{$casilla['Foto']}" alt="Imagen del Candidato {$casilla['Candidato']}" style="width:200px;height:150px" class="w-100">
 			<div class="card-body">
 				<h5 class="card-title"><strong>{$casilla['Candidato']}</strong></h5>
 				<p class="card-text"><strong>Partido:</strong> {$casilla['Partido']}</p>
 				<p class="card-text"><strong>Color Representante:</strong>  {$casilla['Color']}</p>
 				<button id="btn{$casilla['IdNivel']}" type="button" onclick="nuevo_detalle({$detalle['IdNivel']},
-				{$detalle['IdCandidato']},niveles)" class="btn btn-outline-success w-100" >Votar</button>
+				{$detalle['IdCandidato']},niveles,titulos)" class="btn btn-outline-success w-100" >Votar</button>
 			</div>
 		</div>
 	</div> 
 	<script>
 		niveles = $niveles;
+		titulos = $titulos;
 	</script>
 	
 CASILLA;
