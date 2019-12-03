@@ -42,6 +42,8 @@ class PadronCTR extends CI_Controller {
 				$votacion = array("IdVotacion"=>'',"IdEleccion"=>$_POST['Eleccion'],
 				'Cedula'=>$data['Cedula'],'Apellidos'=>$data['Apellidos'],'Foto'=>$data['Foto'],
 				'FechaNacimiento'=>$data['FechaNacimiento'],'Nombres'=>$nombres[0]);
+				$fechanacimiento = strtotime($data['FechaNacimiento']);
+				$votacion['FechaNacimiento'] = date('Y-m-d', $fechanacimiento);
 				$duplicado = votacion_model::votacion_x_Cedula($votacion['Cedula']);
 				if(count($duplicado) == 0){
 					$rs = votacion_model::guardar_votacion($votacion);
@@ -53,6 +55,7 @@ class PadronCTR extends CI_Controller {
 					$this->load->view('FormPadron',['persona'=>false,'error'=>false,'confirmacion'=>$confirmar]);
 					pie::aplicar();
 				}else{
+					
 					$votacion['Error']="";
 					$votacion['Foto']="";
 					$votacion['LugarNacimiento'] = "";

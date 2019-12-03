@@ -44,5 +44,12 @@ confirmarInactivacion(titulo,mensaje,ico,action,$urlBorrar);
 function confirmarSave(titulo,mensaje,ico,action,$urlBorrar){
 confirmacion(titulo,mensaje,ico,action,$urlBorrar);
 }
+function confirmarVoto(titulo,mensaje,ico,action,cancel,url){
+    confirmarVotacion(titulo,mensaje,ico,action,cancel,url);
+}
+function MensajeSA(titulo,mensaje,ico,action){
+    enviarAlerta(titulo,mensaje,ico,action);
+}
+
 </script>
 </html>

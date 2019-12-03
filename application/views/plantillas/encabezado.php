@@ -27,7 +27,8 @@ $urlReporte = base_url('index.php/ReporteCTR');
     <link rel="stylesheet" href="<?=$base?>/css/normalize.css">
     <link rel="stylesheet" href="<?=$base?>/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?=$base?>/css/jquery.mCustomScrollbar.css">
-	<link rel="stylesheet" href="<?=$base?>/css/style.css">
+    <link rel="stylesheet" href="<?=$base?>/css/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<?=$base?>/js/jquery-1.11.2.min.js"><\/script>')</script>
@@ -35,13 +36,16 @@ $urlReporte = base_url('index.php/ReporteCTR');
     <script src="<?=$base?>/js/bootstrap.min.js"></script>
     <script src="<?=$base?>/js/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="<?=$base?>/js/main.js"></script>
-	<script sre="<?=$base?>/js/sweetalert.js"></script>
+	<script src="<?=$base?>/js/sweetalert.js"></script>
+    <script src="<?=$base?>/js/confirmarvoto.js"></script>
+    <script src="<?=$base?>/js/mensaje.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 </head>
 <body>
 <?php 
-if($usuario['IdRol'] == 1){
-    echo <<<CODIGO
+?>
+<!-- // if($usuario['IdRol'] == 1){ -->
+<!-- //     echo <<<CODIGO -->
     <div class="navbar-lateral full-reset">
         <div class="visible-xs font-movile-menu mobile-menu-button"></div>
         <div class="full-reset container-menu-movile custom-scroll-containers">
@@ -107,15 +111,15 @@ if($usuario['IdRol'] == 1){
         </div>
     </div>
     <div class="content-page-container full-reset custom-scroll-containers" >
-CODIGO;
+<!-- CODIGO;
 }
 else{
     echo <<<CODIGO
 		
     <div class=" full-reset custom-scroll-containers" >
 CODIGO;
-}
-?>
+} -->
+<!-- ?> -->
    
         <nav class="navbar-user-top full-reset">
             <ul class="list-unstyled full-reset">
@@ -138,9 +142,9 @@ CODIGO;
                 <li class="mobile-menu-button visible-xs" style="float: left !important;">
                     <i class="zmdi zmdi-menu"></i>
                 </li>
-                <figure>
+                <!-- <figure>
                     <img src="<?=$base?>/img/TuVotoRD.png"  class="pull-left img-responsive center-box" style="width:10%;border:none">
-                </figure>
+                </figure> -->
             </ul>
 		</nav>
 		<div class="container">

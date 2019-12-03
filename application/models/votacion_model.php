@@ -8,7 +8,10 @@ class votacion_model extends CI_Model {
 	public function __construct(){
         parent::__construct();
     }
-
+    static function guardar_votos($votos){
+        $CI =& get_instance();
+        $CI->db->insert_batch('votaciones_detalle',$votos);
+    }
     static function guardar_votacion($votacion){
         $CI =& get_instance();
         $result = null;
@@ -65,6 +68,14 @@ class votacion_model extends CI_Model {
         $sql = "update votaciones set Active=false where IdVotacion=?";
         $CI->db->query($sql, [$id]);
         return $CI->db->affected_rows();
+    }
+    static function verificar_detalle_x_id($id){
+        $CI =& get_instance();
+        $detalle = $CI->db
+        ->where('IdVotacion',$id)
+        ->get('votaciones_detalle')
+        ->result_array();
+        return $detalle;
     }
 
 }

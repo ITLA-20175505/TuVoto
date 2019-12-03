@@ -28,6 +28,20 @@ CODIGO;
 		return ($day > $last_day[$month]) ? $signos[$month+ 1] : $signos[$month];
 	}
 }
+function AsgVotantes($c){
+	$c['Nombres'] = htmlentities($c['Nombres']);
+	$c['Apellidos'] = htmlentities($c['Apellidos']);
+	$c['Cedula'] = htmlentities($c['Cedula']);
+
+	$signo = getSigno($c['FechaNacimiento']);
+	echo <<<ROW
+		<tr>
+		<td scope='row'>{$c['Cedula']}</td>
+		<td>{$c['Nombres']}</td>
+		<td>{$c['Apellidos']}</td>
+		<td>{$signo}</td>
+ROW;
+}
 function AsgUsuarios($u,$urlUsuario){
 	$urlEditar = $urlUsuario."/Editar/".$u['IdUsuario'];
 	$urlBorrar = $urlUsuario."/Eliminar/".$u['IdUsuario'];
@@ -152,20 +166,7 @@ function AsgCandidatos($c,$urlCandidato){
 		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
 ROW;
 }
-function AsgVotantes($c){
-	$c['Nombres'] = htmlentities($c['Nombres']);
-	$c['Apellidos'] = htmlentities($c['Apellidos']);
-	$c['Cedula'] = htmlentities($c['Cedula']);
 
-	$signo = getSigno($c['FechaNacimiento']);
-	echo <<<ROW
-		<tr>
-		<td scope='row'>{$c['Cedula']}</td>
-		<td>{$c['Nombres']}</td>
-		<td>{$c['Apellidos']}</td>
-		<td>{$signo}</td>
-ROW;
-}
 function AsgElecciones($e,$urlEleccion){
 	$urlEditar = $urlEleccion."/Editar/".$e['IdEleccion'];
 	$urlBorrar = $urlEleccion."/Eliminar/".$e['IdEleccion'];
@@ -202,7 +203,7 @@ ROW;
 	echo <<<ROW
 		<tr>
 		<th scope='row'>{$e['IdEleccion']}</th>
-		<td>{$e['Nombre']}</td>
+		<td>{$e['Nombres']}</td>
 		<td>{$e['FechaInicio']}</td>
 		<td>{$e['FechaFin']}</td>
 		<td>{$e['HoraInicio']}</td>
@@ -220,4 +221,26 @@ ROW;
 	
 ROW;
 	}
+}
+function AsgCasilla($casilla,$count){
+	$detalle = array('IdNivel'=>$casilla['IdNivel'],'IdCandidato'=>$casilla['IdCandidato']);
+	$niveles = json_encode($count);
+	echo <<<CASILLA
+	<div class="col-xl-2 p-1" style="min-width:220px;" >				
+		<div class="card" style="min-height:400px">
+			<img src="https://via.placeholder.com/200x150" class="w-100">
+			<div class="card-body">
+				<h5 class="card-title"><strong>{$casilla['Candidato']}</strong></h5>
+				<p class="card-text"><strong>Partido:</strong> {$casilla['Partido']}</p>
+				<p class="card-text"><strong>Color Representante:</strong>  {$casilla['Color']}</p>
+				<button id="btn{$casilla['IdNivel']}" type="button" onclick="nuevo_detalle({$detalle['IdNivel']},
+				{$detalle['IdCandidato']},niveles)" class="btn btn-outline-success w-100" >Votar</button>
+			</div>
+		</div>
+	</div> 
+	<script>
+		niveles = $niveles;
+	</script>
+	
+CASILLA;
 }

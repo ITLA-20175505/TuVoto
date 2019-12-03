@@ -86,6 +86,22 @@ class eleccion_model extends CI_Model {
         $sql = "update elecciones set Eliminado=true where IdEleccion=?";
         $CI->db->query($sql, [$id]);
         return $CI->db->affected_rows();
+        
+    }
+
+    static function GetCasilla($IdEleccion,$IdNivel){
+        $CI =& get_instance();
+		$CI->db->select("c.IdCandidato as IdCandidato,concat(c.Nombres, ' ',c.Apellidos) as Candidato,p.Siglas as Partido, p.Color as Color,n.Nombre as Nivel,n.IdNivel as IdNivel");
+		$CI->db->from('candidatos c');
+        $CI->db->join('partidos p', 'c.IdPartido = p.IdPartido');
+        $CI->db->join('elecciones e', 'e.IdEleccion = p.IdEleccion');
+        $CI->db->join('niveles n', 'c.IdNivel = n.IdNivel')
+        ->where('c.Active=true')
+        ->where('e.IdEleccion',$IdEleccion)
+        ->where('n.IdNivel',$IdNivel)
+		->order_by('c.Nombres ASC');
+		$rs = $CI->db->get()->result_array();
+		 return $rs;
     }
 
 	

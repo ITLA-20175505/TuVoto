@@ -20,9 +20,12 @@ function confirmacion(titulo, mensaje, ico, action, url) {
 
 }
 
+
+
 function swtest() {
     Swal.fire('HOla');
 }
+
 
 function confirmarRegistro(titulo, mensaje, ico, action, url) {
     return new Promise((resolve) => {
@@ -47,6 +50,8 @@ function confirmarRegistro(titulo, mensaje, ico, action, url) {
         });
     });
 }
+
+
 
 function confirmarActivacion(titulo, mensaje, ico, action, url) {
     return new Promise((resolve) => {
@@ -95,6 +100,8 @@ function confirmarInactivacion(titulo, mensaje, ico, action, url) {
         });
     });
 }
+
+
 
 function confirmJS(titulo, mensaje, ico, action, btn) {
     return new Promise((resolve) => {
