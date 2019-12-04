@@ -37,8 +37,7 @@ class EleccionCTR extends CI_Controller {
 		pie::aplicar();
 		if($_POST){
 			$eleccion = array('IdEleccion'=>$_POST['IdEleccion'],'Nombre'=>$_POST['Nombre'],
-			'FechaInicio'=>$_POST['FechaInicio'],'FechaFin'=>$_POST['FechaFin'],'HoraInicio'=>$_POST['HoraInicio'],
-			'HoraFin'=>$_POST['HoraFin']);
+			'FechaInicio'=>$_POST['FechaInicio'],'FechaFin'=>$_POST['FechaFin']);
 			$duplicado = eleccion_model::eleccion_x_Nombre($eleccion['Nombre']);
 			if(count($duplicado) == 0){
 				$rs = eleccion_model::guardar_eleccion($eleccion);
@@ -56,42 +55,53 @@ class EleccionCTR extends CI_Controller {
 				$eleccion['Error']="";
 				encabezado::aplicar('Nueva Eleccion');
 				$this->load->view('FormEleccion',['eleccion'=>$eleccion,
-				'error'=>"Ya existe un Partido con este nombre",'confirmacion'=>false]);
+				'error'=>"Ya existe una Eleccion con este nombre",'confirmacion'=>false]);
 				pie::aplicar();
 			}
 		}
 	}
 	public function Editar($id=0)
 	{
-		$eleccion = eleccion_model::eleccion_x_id($id)[0];
-		encabezado::aplicar("Editar Eleccion");
-		$this->load->view('FormEleccion',['eleccion'=>$eleccion,'error'=>false,'confirmacion'=>false]);
-		pie::aplicar();
-		if($_POST){
-			$eleccion = array('IdEleccion'=>$_POST['IdEleccion'],'Nombre'=>$_POST['Nombre'],
-			'FechaInicio'=>$_POST['FechaInicio'],'FechaFin'=>$_POST['FechaFin'],'HoraInicio'=>$_POST['HoraInicio'],
-			'HoraFin'=>$_POST['HoraFin']);
-			$duplicado = eleccion_model::eleccion_x_Nombre($eleccion['Nombre']);
-			$mismoRegistro = eleccion_model::eleccion_x_id($eleccion['IdEleccion'])[0];
-		
-			if(count($duplicado) == 0 || ($mismoRegistro['IdEleccion'] == $duplicado[0]['IdEleccion'] &&
-			$mismoRegistro['Nombre'] == $eleccion['Nombre'])){
-				$rs = eleccion_model::guardar_eleccion($eleccion);
-				$urlEleccion = base_url('index.php/EleccionCTR');
-				$confirmar =
-				"confirmarSave('Aviso','El Registro fue guardado exitosamente!','success',
-				'OK','$urlEleccion');";
-				encabezado::aplicar("Nueva Eleccion");
-				$this->load->view('FormEleccion',['eleccion'=>false,'error'=>false,
-				'confirmacion'=>$confirmar]);
-				pie::aplicar();
-			}else{
-				$eleccion['Error']="";
-				encabezado::aplicar('Nueva Eleccion');
-				$this->load->view('FormEleccion',['eleccion'=>$eleccion,
-				'error'=>"Ya existe una Eleccion con este nombre",'confirmacion'=>false]);
-				pie::aplicar();
+		$eleccion = eleccion_model::eleccion_x_id($id);
+		if(count($eleccion)> 0){
+			$eleccion = $eleccion[0];
+			$fechainicio = strtotime($eleccion['FechaInicio']);
+			$fechafin = strtotime($eleccion['FechaFin']);
+			$eleccion['FechaInicio'] = date('Y-m-d\TH:i', $fechainicio);
+			$eleccion['FechaFin'] = date('Y-m-d\TH:i', $fechafin);
+			encabezado::aplicar("Editar Eleccion");
+			$this->load->view('FormEleccion',['eleccion'=>$eleccion,'error'=>false,'confirmacion'=>false]);
+			pie::aplicar();
+			if($_POST){
+			
+				$eleccion = array('IdEleccion'=>$_POST['IdEleccion'],'Nombre'=>$_POST['Nombre'],
+				'FechaInicio'=>$_POST['FechaInicio'],'FechaFin'=>$_POST['FechaFin']);
+				$duplicado = eleccion_model::eleccion_x_Nombre($eleccion['Nombre']);
+				$mismoRegistro = eleccion_model::eleccion_x_id($eleccion['IdEleccion'])[0];
+			
+				if(count($duplicado) == 0 || ($mismoRegistro['IdEleccion'] == $duplicado[0]['IdEleccion'] &&
+				$mismoRegistro['Nombre'] == $eleccion['Nombre'])){
+					$rs = eleccion_model::guardar_eleccion($eleccion);
+					$urlEleccion = base_url('index.php/EleccionCTR');
+					$confirmar =
+					"confirmarSave('Aviso','El Registro fue guardado exitosamente!','success',
+					'OK','$urlEleccion');";
+					encabezado::aplicar("Nueva Eleccion");
+					$this->load->view('FormEleccion',['eleccion'=>false,'error'=>false,
+					'confirmacion'=>$confirmar]);
+					pie::aplicar();
+				}else{
+					$eleccion['Error']="";
+					encabezado::aplicar('Nueva Eleccion');
+					$this->load->view('FormEleccion',['eleccion'=>$eleccion,
+					'error'=>"Ya existe una Eleccion con este nombre",'confirmacion'=>false]);
+					pie::aplicar();
+				}
 			}
+		}else{
+			$urlEleccion = base_url('index.php/EleccionCTR');
+			echo "<script>alert('No Existe la Eleccion')
+			window.location = '{$urlEleccion}';</script>";
 		}
 	}
 	public function Eliminar($id=0){

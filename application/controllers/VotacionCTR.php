@@ -18,7 +18,7 @@ class VotacionCTR extends CI_Controller {
 				window.location = '{$urlVotacion}';</script>";
 			}else{
 				encabezado::aplicar("Casilla de Votacion");
-				$this->load->view('Votar1',['persona'=>$votante,'IdVotacion'=>$id,'confirmacion'=>false]);
+				$this->load->view('Votacion',['persona'=>$votante,'IdVotacion'=>$id,'confirmacion'=>false]);
 				pie::aplicar();
 				if($_POST){
 					$niveles = $_POST['niveles'];
@@ -28,12 +28,12 @@ class VotacionCTR extends CI_Controller {
 	
 						$votos[] = array('IdVotacion'=>$_POST['IdVotacion'],'IdNivel'=>$nivel,'IdCandidato'=>$candidatos[$key]); 
 					}
-					$urlPadron = base_url('index.php/PadronCTR');
+					$urlVotacion = base_url('index.php/VotacionCTR/imprimirVoto/').$_POST['IdVotacion'];
 					$rs = votacion_model::guardar_votos($votos);
 					$confirmar =
-					"  confirmacion('Aviso', 'El Voto fue enviado con exito', 'success', 'Ok, Gracias!', '$urlPadron');";
+					"  confirmacion('Aviso', 'El Voto fue enviado con exito', 'success', 'Imprimir Recibo', '$urlVotacion');";
 					encabezado::aplicar("Nuevo Usuario");
-					$this->load->view('Votar1',['persona'=>false,'IdVotacion'=>false,'confirmacion'=>$confirmar]);
+					$this->load->view('Votacion',['persona'=>false,'IdVotacion'=>false,'confirmacion'=>$confirmar]);
 					pie::aplicar();
 				}
 			}
@@ -43,6 +43,10 @@ class VotacionCTR extends CI_Controller {
 			window.location = '{$urlVotacion}';</script>";
 		}
 
+	}
+	public function imprimirVoto($Id){
+		$votacion = votacion_model::resumen_votacion($Id);
+		$this->load->view('reporte',['votacion'=>$votacion]);
 	}
 
 }

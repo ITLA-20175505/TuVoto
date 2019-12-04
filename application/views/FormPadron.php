@@ -1,10 +1,6 @@
 <?php
 echo "<script>".$confirmacion."</script>";
-if((strtotime($eleccion['FechaInicio']) > strtotime('now')) && (strtotime($eleccion['FechaFin']) > strtotime('now'))) {
-	echo "todavia";
-}else{
-	echo "todo bien";
-}
+
 ?>
 <form  method="POST" id="consultaForm">
 	<div class="row" style="margin-top:25px">

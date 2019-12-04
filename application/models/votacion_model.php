@@ -62,6 +62,24 @@ class votacion_model extends CI_Model {
 		->result_array();
 		return $rs;
     }
+    static function resumen_votacion($idVotacion){
+        $CI =& get_instance();
+        $rs = $CI->db->query("
+select  concat(v.Nombres,' ',v.Apellidos) as Votante,n.Nombre as Nivel,concat(c.Nombres,' ',c.Apellidos) as Candidato,
+p.Siglas as Partido,c.Foto as Foto from votaciones v
+inner join votaciones_detalle vd on
+v.IdVotacion = vd.IdVotacion
+inner join niveles n on
+n.IdNivel = vd.IdNivel 
+inner join candidatos c on
+c.IdCandidato = vd.IdCandidato
+inner join partidos p on
+p.IdPartido = c.IdPartido
+where v.IdVotacion = ?
+group by(Nivel)",$idVotacion)
+		->result_array();
+		return $rs;
+    }
 
     static function borrar($id){
         $CI =& get_instance();

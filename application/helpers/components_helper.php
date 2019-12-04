@@ -172,21 +172,24 @@ function AsgElecciones($e,$urlEleccion){
 	$urlBorrar = $urlEleccion."/Eliminar/".$e['IdEleccion'];
 	$urlDesactivar = $urlEleccion."/Desactivar/".$e['IdEleccion'];
 	$urlActivar = $urlEleccion."/Activar/".$e['IdEleccion'];
+	$urlImprimir = base_url('index.php/ReporteCTR')."/Imprimir/".$e['IdEleccion'];
 	$e['Nombre'] = htmlentities($e['Nombre']);
 	$e['FechaInicio'] = htmlentities($e['FechaInicio']);
 	$e['FechaFin'] = htmlentities($e['FechaFin']);
-	$e['HoraInicio'] = htmlentities($e['HoraInicio']);
-	$e['HoraFin'] = htmlentities($e['HoraFin']);
 	$e['Active'] = htmlentities($e['Active']);
+	$fechainicio =  date('d-m-Y', strtotime($e['FechaInicio']));
+	$fechafin =  date('d-m-Y', strtotime($e['FechaFin']));
+	$horainicio =  date('H:i a', strtotime($e['FechaInicio']));
+	$horafin =  date('H:i a', strtotime($e['FechaFin']));
 	if($e['Active'] == "SI"){
 		echo <<<ROW
 		<tr class="info">
 		<th scope='row'>{$e['IdEleccion']}</th>
 		<td>{$e['Nombre']}</td>
-		<td>{$e['FechaInicio']}</td>
-		<td>{$e['FechaFin']}</td>
-		<td>{$e['HoraInicio']}</td>
-		<td>{$e['HoraFin']}</td>
+		<td>{$fechainicio}</td>
+		<td>{$fechafin}</td>
+		<td>{$horainicio}</td>
+		<td>{$horafin}</td>
 		<td>
 		<button type="button" style="margin-bottom: 10px; margin-left: 5px;" class="btn btn-warning pull-right"
 		onclick="desactivar('Desactivar Eleccion','Esta Seguro que desea desactivar esta Eleccion?','question','Desactivar',
@@ -196,6 +199,8 @@ function AsgElecciones($e,$urlEleccion){
 		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
 		onclick="eliminar('Eliminar Eleccion','Esta Seguro que desea eliminar esta Eleccion?','question','Eliminar',
 		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
+		<a type="button" style="margin-bottom: 10px; " class="btn btn-dark pull-right"
+		href="{$urlImprimir}" ><i class="fa fa-edit"></i><strong> Imprimir Reporte</strong></a>
 
 		</td>
 ROW;
@@ -204,10 +209,10 @@ ROW;
 		<tr>
 		<th scope='row'>{$e['IdEleccion']}</th>
 		<td>{$e['Nombre']}</td>
-		<td>{$e['FechaInicio']}</td>
-		<td>{$e['FechaFin']}</td>
-		<td>{$e['HoraInicio']}</td>
-		<td>{$e['HoraFin']}</td>
+		<td>{$fechainicio}</td>
+		<td>{$fechafin}</td>
+		<td>{$horainicio}</td>
+		<td>{$horafin}</td>
 		<td>
 		<button type="button" style="margin-bottom: 10px; margin-left: 5px;" class="btn btn-warning pull-right"
 		onclick="activar('Activar Eleccion','Esta Seguro que desea activar esta Eleccion?','question','Activar',
@@ -217,6 +222,9 @@ ROW;
 		<button type="button" style="margin-bottom: 10px; margin-right: 5px;" class="btn btn-danger pull-right"
 		onclick="eliminar('Eliminar Eleccion','Esta Seguro que desea eliminar esta Eleccion?','question','Eliminar',
 		'{$urlBorrar}')"><i class="fa fa-trash"></i><strong> Eliminar</strong></button>
+		<a type="button" style="margin-bottom: 10px; " class="btn btn-dark pull-right"
+		href="{$urlImprimir}" ><i class="fa fa-edit"></i><strong> Imprimir Reporte</strong></a>
+
 		</td>
 	
 ROW;

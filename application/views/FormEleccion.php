@@ -11,27 +11,16 @@ echo "<script>".$confirmacion."</script>";
 				"Nombre de la eleccion"," required",null,null,null,null,null,null,$eleccion['Nombre']);?>
 			</div>
 			<div class="col-lg-4">
-			<?=asgInputMaterial("","FechaInicio","date",
+			<?=asgInputMaterial("","FechaInicio","datetime-local",
 				"Fecha de Inicio"," required",null,null,null,null,null,null,$eleccion['FechaInicio']);?>
 			</div>
 			<div class="col-lg-4">
-			<?=asgInputMaterial("","FechaFin","date",
+			<?=asgInputMaterial("","FechaFin","datetime-local",
 				"Fecha de Terminacion"," required",null,null,null,null,null,null,$eleccion['FechaFin']);?>
 			</div>
 		</div>
 	</div>
-	<div class="row" style="margin-top:25px">
-		<div class="col-xs-12 col-sm-10 col-sm-offset-3">
-			<div class="col-lg-4">
-			<?=asgInputMaterial("","HoraInicio","time",
-				"Hora de Inicio"," required",null,null,null,null,null,null,$eleccion['HoraInicio']);?>
-			</div>
-			<div class="col-lg-4">
-			<?=asgInputMaterial("","HoraFin","time",
-				"Hora de Terminacion"," required",null,null,null,null,null,null,$eleccion['HoraFin']);?>
-			</div>
-		</div>
-	</div>
+
 	<div class="row" style="margin-top:25px">
 		<div class="col-xs-12 col-sm-12 col-sm-offset-4">
 				<button type="reset"  class="btn btn-lg btn-info" style="margin-right: 20px;"><i class="fa fa-retweet"></i> &nbsp;&nbsp; Limpiar</button>

@@ -4,8 +4,8 @@
 <section class="full-reset text-center">
 <article class="tile">
 		<div class="tile-icon full-reset"><i class="zmdi zmdi-timer"></i></div>
-		<div class="tile-name all-tittles">Tiempo Restante</div>
-		<div class="tile-num full-reset">10</div>
+		<div class="tile-name all-tittles">Dias Restantes</div>
+		<div class="tile-num full-reset"><?=$filtros['Dias_Restantes']?></div>
 	</article>
 	<article class="tile">
 		<div class="tile-icon full-reset"><i class="zmdi zmdi-face"></i></div>

@@ -1,24 +1,46 @@
 <?php
-$urlReporte = base_url('index.php/ReporteCTR');
-$eleccion = eleccion_model::eleccion_x_Activo();
+$base = base_url('base');
+if($eleccion == false){
+	$eleccion = eleccion_model::eleccion_x_Activo();
+}
 if(count($eleccion) > 0){
 	$eleccion = $eleccion[0];
 }
-
-
 ?>
-<div class="container-fluid">
-	<div class="row">
-	<div class="col-xs-10 col-sm-10 col-md-8 text-justify lead">
-		Bienvenido al área de Reportes, aquí puedes ver las diferentes estadísticas de los Candidatos y votos.
-	</div>
-	<div class="col-xs-2 col-sm-2 col-md-offset-2 text-justify lead">
-	<button type="button" style="margin-bottom: 10px; " class="btn btn-warning pull-right"
-		onclick="imprimir()" ><i class="fa fa-edit"></i> Imprimir Reporte</button>
-	</div>
-	</div>
-</div>
-<div class="container-fluid">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="<?=$base?>/js/sweet-alert.min.js"></script>
+    <link rel="stylesheet" href="<?=$base?>/css/sweet-alert.css">
+    <link rel="stylesheet" href="<?=$base?>/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="<?=$base?>/css/normalize.css">
+    <link rel="stylesheet" href="<?=$base?>/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?=$base?>/css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="<?=$base?>/css/style.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="<?=$base?>/js/jquery-1.11.2.min.js"><\/script>')</script>
+    <script src="<?=$base?>/js/modernizr.js"></script>
+    <script src="<?=$base?>/js/bootstrap.min.js"></script>
+    <script src="<?=$base?>/js/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="<?=$base?>/js/main.js"></script>
+	<script src="<?=$base?>/js/sweetalert.js"></script>
+    <script src="<?=$base?>/js/confirmarvoto.js"></script>
+    <script src="<?=$base?>/js/mensaje.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+             <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+	<div class="container-fluid">
 	<div class="page-header">
 		<h2 class="all-tittles">Votos de Eleccion <?=$eleccion['Nombre']?></small></h2>
 	</div>
@@ -39,13 +61,9 @@ if(count($eleccion) > 0){
 					<tbody>
 						<?php
 							$votos = filtros_model::votos_x_candidatos($eleccion['IdEleccion']);
-							$mensaje = "En Las Elecciones ".$eleccion['Nombre'].";";
+							
 							if(count($votos) > 0){
 								foreach ($votos as $key => $voto) {
-									$mensaje = $mensaje." El Candidato a ".$voto['Nivel'].
-									" por parte del partido ".$voto['Partido']."; ".$voto['Candidato']
-									." tiene un total de ".$voto['votos']." votos acumulados, teniendo asi un"
-									." ".$voto['porcentaje']." de los votos generados";
 									echo <<<ROW
 									<tr>
 									<td>{$voto['Candidato']}</td>
@@ -57,7 +75,6 @@ if(count($eleccion) > 0){
 ROW;									
 								}
 							}
-							sendReport($mensaje);
 						?>
 					</tbody>
 					<tfoot>
@@ -121,9 +138,9 @@ ROW;
 		</div>
 	</div>
 </div>
-<iframe id="if_print" style="display:none"></iframe>
+
 <script>
-function imprimir(){
-	document.getElementById('if_print').src = '<?= $urlReporte."/ImprimirReporte"?>';
-}
+print();
 </script>
+    </body>
+</html>

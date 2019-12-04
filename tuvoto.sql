@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 03-12-2019 a las 22:07:23
--- Versión del servidor: 10.4.8-MariaDB
--- Versión de PHP: 7.3.11
+-- Host: 127.0.0.1
+-- Generation Time: Dec 04, 2019 at 06:23 AM
+-- Server version: 8.0.13
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,15 +19,34 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `tuvoto`
+-- Database: `tuvoto`
 --
-CREATE DATABASE IF NOT EXISTS `tuvoto` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE IF NOT EXISTS `tuvoto` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 USE `tuvoto`;
+
+DELIMITER $$
+--
+-- Functions
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `PorcentajeVotos` () RETURNS INT(11) BEGIN
+declare prueba int;
+set prueba = TotalVotos();
+select (count(IdCandidato) / prueba) into @total from votaciones_detalle;
+RETURN @total;
+end$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `TotalVotos` () RETURNS INT(11) BEGIN
+
+select count(IdVotacion) into @total from votaciones_detalle;
+RETURN @total;
+end$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `candidatos`
+-- Table structure for table `candidatos`
 --
 
 CREATE TABLE `candidatos` (
@@ -38,49 +57,51 @@ CREATE TABLE `candidatos` (
   `Apellidos` varchar(50) NOT NULL,
   `Cedula` varchar(13) NOT NULL,
   `Active` bit(1) DEFAULT b'1',
-  `Foto` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Foto` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Volcado de datos para la tabla `candidatos`
+-- Dumping data for table `candidatos`
 --
 
 INSERT INTO `candidatos` (`IdCandidato`, `IdPartido`, `IdNivel`, `Nombres`, `Apellidos`, `Cedula`, `Active`, `Foto`) VALUES
-(1, 2, 2, 'FREDDY', 'SOTO FERMIN', '402-0041396-7', b'1', NULL),
 (2, 2, 2, 'MARIA', 'FERMIN BETANCOURT', '001-0123141-3', b'1', NULL),
 (3, 2, 3, 'BETEL', 'DE LA CRUZ DE LA CRUZ', '402-3800818-5', b'1', NULL),
 (4, 2, 4, 'ROBERT', 'SOTO FERMIN', '402-1325841-7', b'1', NULL),
 (5, 3, 5, 'MARIA', 'SOTO FERMIN', '402-2251856-1', b'1', NULL),
-(6, 2, 4, 'MARELVIS', 'SOTO ORTIZ', '402-2581910-7', b'1', NULL);
+(6, 2, 4, 'MARELVIS', 'SOTO ORTIZ', '402-2581910-7', b'1', NULL),
+(10, 3, 2, 'FREDDY', 'SOTO FERMIN', '402-0041396-7', b'1', 'http://173.249.49.169:88/api/test/foto/40200413967');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `elecciones`
+-- Table structure for table `elecciones`
 --
 
 CREATE TABLE `elecciones` (
   `IdEleccion` int(11) NOT NULL,
   `Nombre` varchar(75) NOT NULL,
-  `FechaInicio` date DEFAULT NULL,
-  `FechaFin` date DEFAULT NULL,
-  `HoraInicio` datetime DEFAULT NULL,
-  `HoraFin` datetime DEFAULT NULL,
+  `FechaInicio` datetime DEFAULT NULL,
+  `FechaFin` datetime DEFAULT NULL,
+  `HoraInicio` time DEFAULT NULL,
+  `HoraFin` time DEFAULT NULL,
   `Active` bit(1) DEFAULT b'0',
   `Eliminado` bit(1) DEFAULT b'0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Volcado de datos para la tabla `elecciones`
+-- Dumping data for table `elecciones`
 --
 
 INSERT INTO `elecciones` (`IdEleccion`, `Nombre`, `FechaInicio`, `FechaFin`, `HoraInicio`, `HoraFin`, `Active`, `Eliminado`) VALUES
-(3, '2020', '2020-12-05', '2020-12-05', '0000-00-00 00:00:00', '0000-00-00 00:00:00', b'1', b'0');
+(3, '2020', '2019-12-04 02:00:00', '2019-12-04 10:08:00', '10:30:00', '12:30:00', b'1', b'0'),
+(4, 'fsdsd', '2019-11-26 00:00:00', '2019-12-11 00:00:00', '00:00:00', '00:00:00', b'0', b'0'),
+(5, 'ddffd', '2020-12-05 10:15:00', '2020-12-05 12:30:00', '00:00:00', '00:00:00', b'0', b'0');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `niveles`
+-- Table structure for table `niveles`
 --
 
 CREATE TABLE `niveles` (
@@ -88,10 +109,10 @@ CREATE TABLE `niveles` (
   `IdEleccion` int(11) NOT NULL,
   `Nombre` varchar(50) DEFAULT NULL,
   `Active` bit(1) DEFAULT b'1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Volcado de datos para la tabla `niveles`
+-- Dumping data for table `niveles`
 --
 
 INSERT INTO `niveles` (`IdNivel`, `IdEleccion`, `Nombre`, `Active`) VALUES
@@ -103,7 +124,7 @@ INSERT INTO `niveles` (`IdNivel`, `IdEleccion`, `Nombre`, `Active`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `partidos`
+-- Table structure for table `partidos`
 --
 
 CREATE TABLE `partidos` (
@@ -113,10 +134,10 @@ CREATE TABLE `partidos` (
   `Nombre` varchar(50) NOT NULL,
   `Color` varchar(25) DEFAULT NULL,
   `Active` bit(1) DEFAULT b'1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Volcado de datos para la tabla `partidos`
+-- Dumping data for table `partidos`
 --
 
 INSERT INTO `partidos` (`IdPartido`, `IdEleccion`, `Siglas`, `Nombre`, `Color`, `Active`) VALUES
@@ -126,16 +147,16 @@ INSERT INTO `partidos` (`IdPartido`, `IdEleccion`, `Siglas`, `Nombre`, `Color`, 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `roles`
+-- Table structure for table `roles`
 --
 
 CREATE TABLE `roles` (
   `IdRol` int(11) NOT NULL,
   `Nombre` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Volcado de datos para la tabla `roles`
+-- Dumping data for table `roles`
 --
 
 INSERT INTO `roles` (`IdRol`, `Nombre`) VALUES
@@ -145,7 +166,7 @@ INSERT INTO `roles` (`IdRol`, `Nombre`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Table structure for table `usuarios`
 --
 
 CREATE TABLE `usuarios` (
@@ -156,10 +177,10 @@ CREATE TABLE `usuarios` (
   `Apellidos` varchar(50) NOT NULL,
   `Contrasena` varchar(200) DEFAULT NULL,
   `Active` bit(1) DEFAULT b'1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Dumping data for table `usuarios`
 --
 
 INSERT INTO `usuarios` (`IdUsuario`, `IdRol`, `Cedula`, `Nombres`, `Apellidos`, `Contrasena`, `Active`) VALUES
@@ -169,7 +190,7 @@ INSERT INTO `usuarios` (`IdUsuario`, `IdRol`, `Cedula`, `Nombres`, `Apellidos`, 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `votaciones`
+-- Table structure for table `votaciones`
 --
 
 CREATE TABLE `votaciones` (
@@ -180,54 +201,49 @@ CREATE TABLE `votaciones` (
   `IdEleccion` int(11) NOT NULL,
   `Active` bit(1) DEFAULT b'1',
   `FechaNacimiento` date DEFAULT NULL,
-  `Foto` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Foto` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Volcado de datos para la tabla `votaciones`
+-- Dumping data for table `votaciones`
 --
 
 INSERT INTO `votaciones` (`IdVotacion`, `Cedula`, `Nombres`, `Apellidos`, `IdEleccion`, `Active`, `FechaNacimiento`, `Foto`) VALUES
-(1, '001-0123141-3', 'MARIA', 'FERMIN BETANCOURT', 3, b'1', '1967-01-05', 'http://173.249.49.169:88/api/test/foto/00101231413'),
-(2, '402-3800818-5', 'BETEL', 'DE LA CRUZ DE LA CRUZ', 3, b'1', '1999-03-19', 'http://173.249.49.169:88/api/test/foto/40238008185'),
-(3, '402-2581910-7', 'MARELVIS', 'SOTO ORTIZ', 3, b'1', '1996-06-08', 'http://173.249.49.169:88/api/test/foto/40225819107');
+(1, '402-0041396-7', 'FREDDY', 'SOTO FERMIN', 3, b'1', '2000-01-19', 'http://173.249.49.169:88/api/test/foto/40200413967'),
+(2, '001-0123141-3', 'MARIA', 'FERMIN BETANCOURT', 3, b'1', '1967-01-05', 'http://173.249.49.169:88/api/test/foto/00101231413');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `votaciones_detalle`
+-- Table structure for table `votaciones_detalle`
 --
 
 CREATE TABLE `votaciones_detalle` (
   `IdVotacion` int(11) NOT NULL,
   `IdNivel` int(11) NOT NULL,
   `IdCandidato` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Volcado de datos para la tabla `votaciones_detalle`
+-- Dumping data for table `votaciones_detalle`
 --
 
 INSERT INTO `votaciones_detalle` (`IdVotacion`, `IdNivel`, `IdCandidato`) VALUES
-(1, 2, 2),
+(1, 2, 1),
 (1, 3, 3),
-(1, 4, 4),
+(1, 4, 6),
 (1, 5, 5),
 (2, 2, 2),
 (2, 3, 3),
 (2, 4, 4),
-(2, 5, 5),
-(3, 2, 2),
-(3, 3, 3),
-(3, 4, 4),
-(3, 5, 5);
+(2, 5, 5);
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `candidatos`
+-- Indexes for table `candidatos`
 --
 ALTER TABLE `candidatos`
   ADD PRIMARY KEY (`IdCandidato`),
@@ -236,33 +252,33 @@ ALTER TABLE `candidatos`
   ADD KEY `fk_Candidato_Nivel` (`IdNivel`);
 
 --
--- Indices de la tabla `elecciones`
+-- Indexes for table `elecciones`
 --
 ALTER TABLE `elecciones`
   ADD PRIMARY KEY (`IdEleccion`);
 
 --
--- Indices de la tabla `niveles`
+-- Indexes for table `niveles`
 --
 ALTER TABLE `niveles`
   ADD PRIMARY KEY (`IdNivel`),
   ADD KEY `fk_Niveles_Eleccion` (`IdEleccion`);
 
 --
--- Indices de la tabla `partidos`
+-- Indexes for table `partidos`
 --
 ALTER TABLE `partidos`
   ADD PRIMARY KEY (`IdPartido`),
   ADD KEY `fk_Partido_Eleccion` (`IdEleccion`);
 
 --
--- Indices de la tabla `roles`
+-- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`IdRol`);
 
 --
--- Indices de la tabla `usuarios`
+-- Indexes for table `usuarios`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`IdUsuario`),
@@ -270,7 +286,7 @@ ALTER TABLE `usuarios`
   ADD KEY `fk_Usuario_Rol` (`IdRol`);
 
 --
--- Indices de la tabla `votaciones`
+-- Indexes for table `votaciones`
 --
 ALTER TABLE `votaciones`
   ADD PRIMARY KEY (`IdVotacion`),
@@ -278,85 +294,85 @@ ALTER TABLE `votaciones`
   ADD KEY `fk_votaciones_elecciones` (`IdEleccion`);
 
 --
--- Indices de la tabla `votaciones_detalle`
+-- Indexes for table `votaciones_detalle`
 --
 ALTER TABLE `votaciones_detalle`
   ADD PRIMARY KEY (`IdVotacion`,`IdNivel`,`IdCandidato`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `candidatos`
+-- AUTO_INCREMENT for table `candidatos`
 --
 ALTER TABLE `candidatos`
-  MODIFY `IdCandidato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `IdCandidato` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT de la tabla `elecciones`
+-- AUTO_INCREMENT for table `elecciones`
 --
 ALTER TABLE `elecciones`
-  MODIFY `IdEleccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IdEleccion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `niveles`
+-- AUTO_INCREMENT for table `niveles`
 --
 ALTER TABLE `niveles`
   MODIFY `IdNivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT de la tabla `partidos`
+-- AUTO_INCREMENT for table `partidos`
 --
 ALTER TABLE `partidos`
   MODIFY `IdPartido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `roles`
+-- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `IdRol` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- AUTO_INCREMENT for table `usuarios`
 --
 ALTER TABLE `usuarios`
   MODIFY `IdUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de la tabla `votaciones`
+-- AUTO_INCREMENT for table `votaciones`
 --
 ALTER TABLE `votaciones`
-  MODIFY `IdVotacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `IdVotacion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `candidatos`
+-- Constraints for table `candidatos`
 --
 ALTER TABLE `candidatos`
-  ADD CONSTRAINT `fk_Candidato_Nivel` FOREIGN KEY (`IdNivel`) REFERENCES `niveles` (`IdNivel`),
-  ADD CONSTRAINT `fk_Candidato_Partido` FOREIGN KEY (`IdPartido`) REFERENCES `partidos` (`IdPartido`);
+  ADD CONSTRAINT `fk_Candidato_Nivel` FOREIGN KEY (`IdNivel`) REFERENCES `niveles` (`idnivel`),
+  ADD CONSTRAINT `fk_Candidato_Partido` FOREIGN KEY (`IdPartido`) REFERENCES `partidos` (`idpartido`);
 
 --
--- Filtros para la tabla `niveles`
+-- Constraints for table `niveles`
 --
 ALTER TABLE `niveles`
   ADD CONSTRAINT `fk_Niveles_Eleccion` FOREIGN KEY (`IdEleccion`) REFERENCES `elecciones` (`IdEleccion`);
 
 --
--- Filtros para la tabla `partidos`
+-- Constraints for table `partidos`
 --
 ALTER TABLE `partidos`
   ADD CONSTRAINT `fk_Partido_Eleccion` FOREIGN KEY (`IdEleccion`) REFERENCES `elecciones` (`IdEleccion`);
 
 --
--- Filtros para la tabla `votaciones`
+-- Constraints for table `votaciones`
 --
 ALTER TABLE `votaciones`
-  ADD CONSTRAINT `fk_votaciones_elecciones` FOREIGN KEY (`IdEleccion`) REFERENCES `elecciones` (`IdEleccion`);
+  ADD CONSTRAINT `fk_votaciones_elecciones` FOREIGN KEY (`IdEleccion`) REFERENCES `elecciones` (`ideleccion`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -12,6 +12,7 @@ class Main extends CI_Controller {
 		$filtros['Cant_Candidatos'] = filtros_model::cant_Candidatos();
 		$filtros['Cant_Niveles'] = filtros_model::cant_Niveles();
 		$filtros['Cant_Votos'] = filtros_model::cant_Votos();
+		$filtros['Dias_Restantes'] = filtros_model::cant_dias()['DiasFaltantes'];
 		encabezado::aplicar("Sistema Elecciones");
 		$this->load->view('Inicio',['filtros'=>$filtros]);
 		pie::aplicar();

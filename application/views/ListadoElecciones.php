@@ -1,5 +1,6 @@
 <?php
 $urlEleccion = base_url('index.php/EleccionCTR');
+
 ?>
 <div class="col-xs-12">
 	<div class="table-responsive">
@@ -18,6 +19,7 @@ $urlEleccion = base_url('index.php/EleccionCTR');
 			<tbody>
 				<?php 
 				foreach($elecciones as $key=>$eleccion){
+					
 					AsgElecciones($eleccion,$urlEleccion);
 				}
 				?>

@@ -8,6 +8,10 @@ echo "<script>".$confirmacion."</script>";
 		<div class="col-xs-12 col-sm-10 col-sm-offset-0">
 			<div class="col-lg-11 col-sm-offset-3">
 				<div class="group-material">
+					<div class="col-lg-2">
+					<img src="<?=$persona['Foto']?>" alt="Foto del Candidato" 
+					style="height:125px;width:125px;margin-top:-40px">
+					</div>
 					<div class="col-lg-8">
 					
 						<?=asgInputMaterial("Digite la cedula para consultar","ConsultaCedula","tel","XXX-XXXXXXX-X",
